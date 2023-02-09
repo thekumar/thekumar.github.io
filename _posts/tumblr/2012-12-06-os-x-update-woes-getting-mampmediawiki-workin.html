@@ -1,0 +1,44 @@
+---
+layout: post
+title: OS X Update Woes - Getting MAMP/MediaWiki working on Mountain Lion
+date: '2012-12-06T23:34:00-08:00'
+tags:
+- JustMigrated
+- '10.8'
+- apache
+- mamp
+- mediawiki
+- mountain lion
+- mysql
+- osx
+- php
+- upgrade
+tumblr_url: https://blog.vijayarunkumar.com/post/48919503539/os-x-update-woes-getting-mampmediawiki-workin
+---
+<p>I&rsquo;ve been putting off upgrading the OS on my iMac at home for a while. But last night, I finally got to doing it. And, surprise surprise!!! My personal web server goes bust, and my chicken recipes posted on my private mediawiki installation become inaccessible!!! There&rsquo;s my ridiculously elaborate, yet true, excuse for not cooking last night, and eating out yet again :) (I promise, I will start cooking one of these days!)</p>
+<p>Well, I have encountered this issue a few times before in the past. (During every OS upgrade to be precise) So, I decided to document my fix this time. Apple has a habit of being overly concerned for its users&rsquo; security, and changes certain config files and permissions back to their default state, completely ignoring the time and effort the user (me) put into getting things to work just right!</p>
+<p><strong>Here&rsquo;s my setup:</strong></p>
+<p>I have MySQL hosting my wiki&rsquo;s database, and MediaWiki, which is built on PHP, running on Apache2 that comes pre-installed on the mac. It&rsquo;s basically, mod_php on apache talking to mysql. Pretty simple&hellip; and Apple screwed up all three parts of my setup.</p>
+<p>First, Apple reverts changes to my httpd.conf, thus disabling mod_php.</p>
+<p>Second, a bigger change, Apple took away the System Preference checkbox for Personal Web Sharing, which was the simple way to start/stop apache.</p>
+<p>Third, Apple reverts the permissions on the file used for Unix socket connection between PHP and MySQL. Well, technically the permissions on the tmp folder where the socket file resides.</p>
+<p><strong>Fixes</strong>:</p>
+<p>1. uncomment the line that loads mod_php in httpd.conf (found under /etc/apache2). Basically find the line that says:</p>
+<p>#LoadModule php5_module libexec/apache2/libphp5.so</p>
+<p> and remove the # to uncomment it, so that it looks</p>
+<p>LoadModule php5_module libexec/apache2/libphp5.so </p>
+<p>I have all my content located at the default /Library/WebServer/Documents location, so I didn&rsquo;t have to change anything else. But, if you used a different DocumentRoot in the past, you may need to reconfigure those settings as well.</p>
+<p>2. The UI might have gone missing, but Apache2 still comes installed with your mac, so fire up your Terminal, and run.</p>
+<p>&gt; sudo apachectl start</p>
+<p>or, to make sure it starts every single time, the launch control is still available as well&hellip;</p>
+<p>&gt; sudo launchctl load -w /System/Library/LaunchDaemons/org.apache.httpd.plist </p>
+<p>The -w will make it permanent.</p>
+<p>3. Make the MySQL socket accessible for PHP</p>
+<p>&gt; sudo mkdir /var/mysql</p>
+<div>
+<p style="background-color: #ffffff;">&gt; sudo ln -s /tmp/mysql.sock /var/mysql/mysql.sock</p>
+<p style="background-color: #ffffff;"><br/></p>
+<div style="background-color: #ffffff;">
+<p style="font-family: Arial, Helvetica, sans-serif; line-height: normal;">Voila! My recipes are back online now! But, I don&rsquo;t have any chicken to cook.</p>
+</div>
+</div>

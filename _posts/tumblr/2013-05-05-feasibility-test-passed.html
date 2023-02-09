@@ -1,0 +1,13 @@
+---
+layout: post
+title: 'Feasibility Test: Passed!'
+date: '2013-05-05T18:03:00-07:00'
+tags: []
+tumblr_url: https://blog.vijayarunkumar.com/post/49721896524/feasibility-test-passed
+---
+<p>That idea that I posted about earlier&hellip; Yeah, the one that I can&rsquo;t talk about just yet. Yes, that one! All that math, and the algorithms which worked out fine in my mind take a lot of processing power. And, if I&rsquo;m going to build a &ldquo;Video&rdquo; app, ensuring real-time performance is paramount. But of course, you all knew that already. Why else would I be reading up on OpenCV and GPU accelerated programming?</p>
+<p>So, today, I hacked out a little app to make sure that what I want to build can be done with today&rsquo;s hardware. i.e, it should be able to run on my 3 year old iPhone 4.</p>
+<p>Okay, I will be a little less cryptic about it, and let you in on just this one little secret. For what I want to achieve in the final app, I need to be able to detect edges in real-time. That means, I should be able to apply a gaussian blur function on the video frame (to smooth out unwanted edges), and then run the Canny86 algorithm on top of it to detect the edges. And do all that while achieving real-time or near real-time performance on my iPhone. I need at least 12 FPS for my app. (In fact, I prefer 12fps for the effect I desire, over either 24 or 30fps)</p>
+<p>Coding it in OpenCV couldn&rsquo;t have been any simpler. Talk about readily available functions with names like cv::GaussianBlur, and cv::Canny. It&rsquo;s as if they wrote the library with my app in mind :) Anyway, skipping over to the good news: <strong>It works!</strong> I wrote the app not knowing what kind of performance to expect, and when I ran it for the first time&hellip; I smiled.</p>
+<p>Here&rsquo;s a little preview of the app showing my parents&rsquo; backyard:</p>
+<p><figure class="tmblr-full" data-orig-height="333" data-orig-width="500"><img alt="image" src="https://64.media.tumblr.com/abe7617bd8d181e378dd566df25b21c7/805bf6033beb7c0e-36/s540x810/7227d9ed80da306e91c3cb6ef20032abdae254bd.jpg" data-orig-height="333" data-orig-width="500"/></figure></p>

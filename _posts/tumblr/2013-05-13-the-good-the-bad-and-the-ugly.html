@@ -1,0 +1,19 @@
+---
+layout: post
+title: The Good, the Bad, and the Ugly
+date: '2013-05-13T17:33:00-07:00'
+tags:
+- ios
+- video
+- app
+- programming
+tumblr_url: https://blog.vijayarunkumar.com/post/50368150595/the-good-the-bad-and-the-ugly
+---
+<p><strong>The Good:</strong></p>
+<p>I found out about this awesome GPU accelerated image processing framework, <a href="https://github.com/BradLarson/GPUImage">GPUImage</a>. Thanks to <a href="https://twitter.com/bradlarson">@bradlarson</a> for writing it, and to <a href="https://twitter.com/roderic">@roderic</a> for tweeting me the link. It&rsquo;s an extremely well-designed library, and it took me about 15 minutes to comment out all the openCV code, and integrate GPUImage into my test app. Of course, my test app didn&rsquo;t do much, other than run Canny Edge detection on frames from my video camera. But anyway, the results were pleasing to say the least. 640x480 on my iPhone4 runs at a smooth 20+ fps. And, although I haven&rsquo;t tried it yet, I&rsquo;m sure my iPad3 can do much better than that, and could probably handle 720p pretty well.</p>
+<p><strong>The Bad:</strong></p>
+<p>I&rsquo;m no longer with Bre.ad. I wish that affair had lasted longer, but it wasn&rsquo;t meant to be. So, If you, or someone you know, is looking to hire a mobile/backend engineer with mad skillz (hopefully inside the 7x7), check out my <a href="http://vijayarunkumar.com/resume.pdf">resume</a> and pass it along. Okay, that wasn&rsquo;t so bad. Onwards to&hellip;</p>
+<p><strong>The Ugly:</strong></p>
+<p>So, I have this super slick UI in my mind for the app, that shows live effect previews overlaid on top of a live video stream. It involves applying different effects to different parts of the video, and making the live previews scrollable as well (and smoothly at that), to make it appear as if you are looking at the world through these magical panes of effect-glass.</p>
+<p>Anyway, I had to first make sure this was possible, and hacked out a simple prototype with 4 live effects (Canny, Canny+Inverted Colors, Sepia, and a Posterize/Saturation filter). And, following in the age old tradition of making ugly prototypes, it&rsquo;s a pretty ugly implementation. But, it&rsquo;s the beginning of something amazing. Check it out!</p>
+<p><figure class="tmblr-full" data-orig-height="750" data-orig-width="500"><img alt="image" src="https://64.media.tumblr.com/206064e52a24668fc61ddc179b143668/c3079269e7796b71-57/s540x810/2f8517e72071cfa6731a158021c0104a21977831.png" data-orig-height="750" data-orig-width="500"/></figure></p>

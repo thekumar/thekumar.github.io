@@ -1,0 +1,583 @@
+---
+layout: post
+title: D3MO - Part 2
+date: '2015-11-23T03:02:01-08:00'
+tags: []
+tumblr_url: https://blog.vijayarunkumar.com/post/133784355683/d3mo-part-2
+---
+<p>Continuing on with the D3 Clock-face we created in <a href="http://blog.vijayarunkumar.com/post/133290782088/d3-demo-d3mo-part-1">Part 1</a>, Let’s create a simple SVG representation of a clock hand.</p><p><b>HTML</b></p>
+<pre><code class="html">
+&lt;svg width="120" height="20"&gt;
+  &lt;path d="M 0 10 L 20 0 L 120 10 L 20 20 z"/&gt;
+&lt;/svg&gt;
+</code></pre>
+<p><b>Demo</b></p>
+<svg width="120" height="20"><path d="M 0 10 L 20 0 L 120 10 L 20 20 z"></path></svg><p>Let’s turn it into a reusable symbol, and create the hour, minute, and second hands by reusing the symbol.</p>
+<p><b>HTML</b></p>
+<pre><code class="html">
+&lt;svg width="300" height="300"&gt;
+    &lt;defs&gt;
+        &lt;symbol id="hand" &gt;
+            &lt;path d="M 0 10 L 20 0 L 120 10 L 20 20 z"/&gt;
+        &lt;/symbol&gt;
+    &lt;/defs&gt;
+    &lt;use id="secondHand" xlink:href="#hand" fill="#a00" transform="translate(150,150),rotate(-90),scale(1.5,0.75),translate(-20,-10)"/&gt;
+    &lt;use id="minuteHand" xlink:href="#hand" fill="#666" transform="translate(150,150),rotate(30),translate(-20,-10)"/&gt;
+    &lt;use id="hourHand" xlink:href="#hand" fill="#333" transform="translate(150,150),rotate(0),scale(.75,1.0),translate(-20,-10)"/&gt;
+&lt;/svg&gt;
+</code></pre>
+<p><b>Demo</b></p>
+<svg width="300" height="300"><defs><symbol id="hand"><path d="M 0 10 L 20 0 L 120 10 L 20 20 z"></path></symbol></defs><use id="secondHand" xlink:href="#hand" fill="#a00" transform="translate(150,150),rotate(-90),scale(1.5,0.75),translate(-20,-10)"></use><use id="minuteHand" xlink:href="#hand" fill="#666" transform="translate(150,150),rotate(30),translate(-20,-10)"></use><use id="hourHand" xlink:href="#hand" fill="#333" transform="translate(150,150),rotate(0),scale(.75,1.0),translate(-20,-10)"></use></svg><p>Once the scale and translate transforms are done, the only thing we will need to worry about would be the rotation of the hands around that original 10,20 point in the symbol. So, let’s rewrite our SVG with nested groupings (or graphics contexts, or whatever G means) as follows:</p>
+<p><b>HTML</b></p>
+<pre><code class="html">
+&lt;svg width="300" height="300"&gt;
+    &lt;defs&gt;
+        &lt;symbol id="hand" &gt;
+            &lt;path d="M 0 10 L 20 0 L 120 10 L 20 20 z"/&gt;
+        &lt;/symbol&gt;
+    &lt;/defs&gt;
+    &lt;g transform="translate(150,150)"&gt;
+        &lt;g transform="rotate(0)"&gt;
+            &lt;use id="secondHand" xlink:href="#hand" fill="#a00" transform="rotate(-90),scale(1.5,0.75),translate(-20,-10)"/&gt;
+        &lt;/g&gt;
+    &lt;/g&gt;
+    &lt;g transform="translate(150,150)"&gt;
+        &lt;g transform="rotate(120)"&gt;
+            &lt;use id="minuteHand" xlink:href="#hand" fill="#666" transform="rotate(-90),translate(-20,-10)"/&gt;
+        &lt;/g&gt;
+    &lt;/g&gt;
+    &lt;g transform="translate(150,150)"&gt;
+        &lt;g transform="rotate(90)"&gt;
+            &lt;use id="hourHand" xlink:href="#hand" fill="#333" transform="rotate(-90),scale(.75,1.0),translate(-20,-10)"/&gt;
+        &lt;/g&gt;
+    &lt;/g&gt;
+&lt;/svg&gt;
+</code></pre>
+<p><b>Demo</b></p>
+<svg width="300" height="300"><defs><symbol id="hand"><path d="M 0 10 L 20 0 L 120 10 L 20 20 z"></path></symbol></defs><g transform="translate(150,150)"><g transform="rotate(0)"><use id="secondHand" xlink:href="#hand" fill="#a00" transform="rotate(-90),scale(1.5,0.75),translate(-20,-10)"></use></g></g><g transform="translate(150,150)"><g transform="rotate(120)"><use id="minuteHand" xlink:href="#hand" fill="#666" transform="rotate(-90),translate(-20,-10)"></use></g></g><g transform="translate(150,150)"><g transform="rotate(90)"><use id="hourHand" xlink:href="#hand" fill="#333" transform="rotate(-90),scale(.75,1.0),translate(-20,-10)"></use></g></g></svg>
+<!-- more -->
+<p>Notice that we adjusted the rotation of the hands inside the groupings to be -90º. This is to make the math simpler when we calculate rotation based on the current time, so that 0º would be 12 o’clock, and 90º 3 o’clock.</p>
+
+<p>Now that we know what the SVG that we need looks like, let’s create the same using javascript &amp; D3, and get references to the graphics context / grouping elements that we actually care about&hellip; the ones that define the rotation of each hand in degrees.</p>
+<p><b>DOM</b></p>
+<pre><code class="html">
+&lt;div id="d3vis"&gt;
+</code></pre>
+
+<p><b>Script</b></p>
+<pre><code class="javascript">
+// From Part 1 of this Blog Post
+var dim = 300;
+var svg = d3.select("#d3vis")
+            .append("svg")
+              .attr("width",dim)
+              .attr("height",dim);
+var gHours = svg.append("g")
+    .attr("transform", "translate(" + [dim/2, dim/2] + ")");
+var gSeconds = svg.append("g")
+    .attr("transform", "translate(" + [dim/2, dim/2] + ")");
+    
+var hourMarkers = gHours.each(function(d) {
+  d3.select(this).call(clockFace, 12, dim/2);
+}).selectAll("circle");
+
+var secondMarkers = gSeconds.each(function(d) {
+  d3.select(this).call(clockFace, 60, dim/2);
+}).selectAll("circle");
+
+secondMarkers.attr("fill","#aaa");
+hourMarkers.attr("fill",function(d,i){return (i == 0)?"#666":(i % 3 == 0)?"#666":"#aaa";});
+
+function clockFace(selection, numDots, size) {
+  offset = 0;
+  radius = numDots * size / (numDots + 2);
+  deltaY = (numDots % 2 == 0)?0:(radius / 2) * (1 - Math.cos(Math.PI / numDots));
+  selection.selectAll("g")
+    .data(d3.range(numDots))
+    .enter().append("g")
+      .attr("transform",function(d) {
+        var angle = d * 360 / numDots + offset;
+        return "translate(0,"+deltaY+")rotate("+angle+")translate("+radius+")rotate("+ -angle + ")";
+      })
+      .append("circle").attr("r",0.9*(size)/(numDots));
+}
+
+// All the NEW STUFF for Part 2.
+
+svg.append("defs")
+.append("symbol").attr("id","hand")
+.append("path").attr("d","M 0 10 L 20 0 L 120 10 L 20 20 z");
+
+var secondRot = svg.append("g").attr("transform","translate(150,150)")
+                    .append("g").attr("transform","rotate(10)");
+var secondHand = secondRot.append("use")
+                    .attr("xlink:href","#hand")
+                    .attr("fill","#e33")
+                    .attr( "transform", "rotate(-90),scale(1.5,0.5),translate(-20,-10)");
+
+var minuteRot = svg.append("g").attr("transform","translate(150,150)")
+                    .append("g").attr("transform","rotate(30)");
+var minuteHand = minuteRot.append("use")
+                    .attr("xlink:href","#hand")
+                    .attr("fill","#999")
+                    .attr( "transform", "rotate(-90),translate(-20,-10)");
+var hourRot = svg.append("g").attr("transform","translate(150,150)")
+                    .append("g").attr("transform","rotate(40)");
+var hourHand = hourRot.append("use")
+                    .attr("xlink:href","#hand")
+                    .attr("fill","#666")
+                    .attr( "transform", "rotate(-90),scale(.75,1),translate(-20,-10)");
+ 
+</code></pre>
+<p><b>Demo</b></p>
+<div id="d3vis1"></div>
+<script language="javascript1.2">
+// From Part 1 of this Blog Post
+var dim = 300;
+var svg1 = d3.select("#d3vis1")
+            .append("svg")
+              .attr("width",dim)
+              .attr("height",dim);
+var gHours1 = svg1.append("g")
+    .attr("transform", "translate(" + [dim/2, dim/2] + ")");
+var gSeconds1 = svg1.append("g")
+    .attr("transform", "translate(" + [dim/2, dim/2] + ")");
+    
+var hourMarkers1 = gHours1.each(function(d) {
+  d3.select(this).call(clockFace, 12, dim/2);
+}).selectAll("circle");
+
+var secondMarkers1 = gSeconds1.each(function(d) {
+  d3.select(this).call(clockFace, 60, dim/2);
+}).selectAll("circle");
+
+secondMarkers1.attr("fill","#aaa");
+hourMarkers1.attr("fill",function(d,i){return (i == 0)?"#666":(i % 3 == 0)?"#666":"#aaa";});
+
+function clockFace(selection, numDots, size) {
+  offset = 0;
+  radius = numDots * size / (numDots + 2);
+  deltaY = (numDots % 2 == 0)?0:(radius / 2) * (1 - Math.cos(Math.PI / numDots));
+  selection.selectAll("g")
+    .data(d3.range(numDots))
+    .enter().append("g")
+      .attr("transform",function(d) {
+        var angle = d * 360 / numDots + offset;
+        return "translate(0,"+deltaY+")rotate("+angle+")translate("+radius+")rotate("+ -angle + ")";
+      })
+      .append("circle").attr("r",0.9*(size)/(numDots));
+}
+
+// This is the new stuff for Part 2
+svg1.append("defs")
+.append("symbol").attr("id","hand")
+.append("path").attr("d","M 0 10 L 20 0 L 120 10 L 20 20 z");
+
+var secondRot1 = svg1.append("g").attr("transform","translate(150,150)")
+                    .append("g").attr("transform","rotate(10)");
+var secondHand1 = secondRot1.append("use")
+                    .attr("xlink:href","#hand")
+                    .attr("fill","#e33")
+                    .attr( "transform", "rotate(-90),scale(1.5,0.5),translate(-20,-10)");
+
+var minuteRot1 = svg1.append("g").attr("transform","translate(150,150)")
+                    .append("g").attr("transform","rotate(30)");
+var minuteHand1 = minuteRot1.append("use")
+                    .attr("xlink:href","#hand")
+                    .attr("fill","#999")
+                    .attr( "transform", "rotate(-90),translate(-20,-10)");
+var hourRot1 = svg1.append("g").attr("transform","translate(150,150)")
+                    .append("g").attr("transform","rotate(40)");
+var hourHand1 = hourRot1.append("use")
+                    .attr("xlink:href","#hand")
+                    .attr("fill","#666")
+                    .attr( "transform", "rotate(-90),scale(.75,1),translate(-20,-10)");
+ 
+</script><h2>Moving the Clock Hands</h2>
+
+<p>Okay, time to update the rotation angles based on the current time, and voila!</p>
+
+<p><b>Script</b></p>
+<pre><code class="javascript">
+currentTime = function() {
+    var date = new Date();
+    var secondAngle = (date.getSeconds()/60) * 360;
+    var minuteAngle = (date.getMinutes()/60) * 360 + (secondAngle/360)*6;
+    var hourAngle = ((date.getHours() % 12)/12) * 360 + (minuteAngle/360)*30;
+    
+    hourRot.attr("transform","rotate("+hourAngle+")");
+    minuteRot.attr("transform","rotate("+minuteAngle+")");
+    secondRot.attr("transform","rotate("+secondAngle+")");
+}    
+
+resetTime = function() {
+    hourRot.attr("transform","rotate(0)");
+    minuteRot.attr("transform","rotate(0)");
+    secondRot.attr("transform","rotate(0)");
+}
+</code></pre>
+<p><b>Demo</b></p>
+<form><input type="button" value="Current Time" onclick="currentTime()"><input type="button" value="Reset" onclick="resetTime()"></form>
+<div id="d3vis2"></div>
+<script language="javascript1.2">
+var svg2 = d3.select("#d3vis2")
+            .append("svg")
+              .attr("width",dim)
+              .attr("height",dim);
+var gHours2 = svg2.append("g")
+    .attr("transform", "translate(" + [dim/2, dim/2] + ")");
+var gSeconds2 = svg2.append("g")
+    .attr("transform", "translate(" + [dim/2, dim/2] + ")");
+    
+var hourMarkers2 = gHours2.each(function(d) {
+  d3.select(this).call(clockFace, 12, dim/2);
+}).selectAll("circle");
+
+var secondMarkers2 = gSeconds2.each(function(d) {
+  d3.select(this).call(clockFace, 60, dim/2);
+}).selectAll("circle");
+
+secondMarkers2.attr("fill","#aaa");
+hourMarkers2.attr("fill",function(d,i){return (i == 0)?"#666":(i % 3 == 0)?"#666":"#aaa";});
+
+svg2.append("defs")
+.append("symbol").attr("id","hand")
+.append("path").attr("d","M 0 10 L 20 0 L 120 10 L 20 20 z");
+
+var secondRot2 = svg2.append("g").attr("transform","translate(150,150)")
+                    .append("g").attr("transform","rotate(0)");
+var secondHand2 = secondRot2.append("use")
+                    .attr("xlink:href","#hand")
+                    .attr("fill","#e33")
+                    .attr( "transform", "rotate(-90),scale(1.5,0.5),translate(-20,-10)");
+
+var minuteRot2 = svg2.append("g").attr("transform","translate(150,150)")
+                    .append("g").attr("transform","rotate(0)");
+var minuteHand2 = minuteRot2.append("use")
+                    .attr("xlink:href","#hand")
+                    .attr("fill","#999")
+                    .attr( "transform", "rotate(-90),translate(-20,-10)");
+var hourRot2 = svg2.append("g").attr("transform","translate(150,150)")
+                    .append("g").attr("transform","rotate(0)");
+var hourHand2 = hourRot2.append("use")
+                    .attr("xlink:href","#hand")
+                    .attr("fill","#666")
+                    .attr( "transform", "rotate(-90),scale(.75,1),translate(-20,-10)");
+
+currentTime = function() {
+    var date = new Date();
+    var secondAngle = (date.getSeconds()/60) * 360;
+    var minuteAngle = (date.getMinutes()/60) * 360 + (secondAngle/360)*6;
+    var hourAngle = ((date.getHours() % 12)/12) * 360 + (minuteAngle/360)*30;
+    
+    hourRot2.attr("transform","rotate("+hourAngle+")");
+    minuteRot2.attr("transform","rotate("+minuteAngle+")");
+    secondRot2.attr("transform","rotate("+secondAngle+")");
+}
+
+resetTime = function() {
+    hourRot2.attr("transform","rotate(0)");
+    minuteRot2.attr("transform","rotate(0)");
+    secondRot2.attr("transform","rotate(0)");
+}
+
+</script>
+
+That&rsquo;s cool, but ours is an analog clock, and analog clocks don&rsquo;t move like that! Let&rsquo;s throw in a splash of D3 transition animation. The D3.js framework includes support for smooth transitions and animations with the help of the transition() construct. Inside a transition() block, all numeric and color attributes (which end up with a numeric representation anyway) get interpolated to their new values over a short duration (I think default is 300ms, but it can easily be changed).
+
+For instance, to make all our second markers pulse, (with a staggered delay for a cool ring effect) we can define a function such as:
+
+<p><b>Script</b></p>
+<pre><code class="javascript">
+pulse = function(){
+    secondMarkers
+      .transition()
+        .delay(function(d,i){return i*5;})
+        .attr("r",function() {
+            return d3.select(this).attr("r") * 2;
+          })
+        .each("end",function(){
+            d3.select(this).transition().attr("r", d3.select(this).attr("r")*.5);
+          });
+}
+
+</code></pre>
+<p><b>Demo</b></p>
+<form><input type="button" value="Pulse" onclick="pulse()"></form>
+<div id="d3vis3"></div>
+<script language="javascript1.2">
+var svg3 = d3.select("#d3vis3")
+            .append("svg")
+              .attr("width",dim)
+              .attr("height",dim);
+var gHours3 = svg3.append("g")
+    .attr("transform", "translate(" + [dim/2, dim/2] + ")");
+var gSeconds3 = svg3.append("g")
+    .attr("transform", "translate(" + [dim/2, dim/2] + ")");
+    
+var hourMarkers3 = gHours3.each(function(d) {
+  d3.select(this).call(clockFace, 12, dim/2);
+}).selectAll("circle");
+
+var secondMarkers3 = gSeconds3.each(function(d) {
+  d3.select(this).call(clockFace, 60, dim/2);
+}).selectAll("circle");
+
+secondMarkers3.attr("fill","#aaa");
+hourMarkers3.attr("fill",function(d,i){return (i == 0)?"#666":(i % 3 == 0)?"#666":"#aaa";});
+
+svg3.append("defs")
+.append("symbol").attr("id","hand")
+.append("path").attr("d","M 0 10 L 20 0 L 120 10 L 20 20 z");
+
+var secondRot3 = svg3.append("g").attr("transform","translate(150,150)")
+                    .append("g").attr("transform","rotate(0)");
+var secondHand3 = secondRot3.append("use")
+                    .attr("xlink:href","#hand")
+                    .attr("fill","#e33")
+                    .attr( "transform", "rotate(-90),scale(1.5,0.5),translate(-20,-10)");
+
+var minuteRot3 = svg3.append("g").attr("transform","translate(150,150)")
+                    .append("g").attr("transform","rotate(0)");
+var minuteHand3 = minuteRot3.append("use")
+                    .attr("xlink:href","#hand")
+                    .attr("fill","#999")
+                    .attr( "transform", "rotate(-90),translate(-20,-10)");
+var hourRot3 = svg3.append("g").attr("transform","translate(150,150)")
+                    .append("g").attr("transform","rotate(0)");
+var hourHand3 = hourRot3.append("use")
+                    .attr("xlink:href","#hand")
+                    .attr("fill","#666")
+                    .attr( "transform", "rotate(-90),scale(.75,1),translate(-20,-10)");
+
+pulse = function(){
+    secondMarkers3
+      .transition()
+        .delay(function(d,i){return i*5;})
+        .attr("r",function() {
+            return d3.select(this).attr("r") * 2;
+          })
+        .each("end",function(){
+            d3.select(this).transition().attr("r", d3.select(this).attr("r")*.5);
+          });
+}
+</script><p>The code above doubles the radius attribute (&ldquo;r&rdquo;) of each second marker inside a transition, and at the &ldquo;end&rdquo; of the transition, once again transitions it back to its original size.</p>
+
+<p>However, the rotation of the clock hand is defined as a string inside a transform attribute, and it&rsquo;s not as simple to interpolate as a numeric field. Luckily, D3 provides many interpolation functions that we can employ, and one such function is the <b>interpolateString</b> function that finds numeric values inside a string, and interpolates them individually to new values found in the replacement string.</p>
+
+<p>So, in our case, if we change transform attribute from &ldquo;rotate(0)&rdquo; to &ldquo;rotate(30)&rdquo;, interpolateString function will take care of automagically tweening between 0 and 30 within the String. So, rewriting our time update function above&hellip;</p>
+
+<p><b>Script</b></p>
+<pre><code class="javascript">
+
+    hourRot.transition()
+        .attrTween("transform", function() {
+          return d3.interpolateString(d3.select(this).attr("transform"), "rotate("+hourAngle+")");
+        });
+    minuteRot.transition()
+        .attrTween("transform", function() {
+          return d3.interpolateString(d3.select(this).attr("transform"), "rotate("+minuteAngle+")");
+        });
+
+    secondRot.transition()
+        .attrTween("transform", function() {
+          return d3.interpolateString(d3.select(this).attr("transform"), "rotate("+secondAngle+")");
+        });
+
+</code></pre>
+<p><b>Demo</b></p>
+<form><input type="button" value="Current Time" onclick="currentTimeAnimated()"><input type="button" value="Reset" onclick="resetTimeAnimated()"></form>
+<div id="d3vis4"></div>
+<script language="javascript1.2">
+var svg4 = d3.select("#d3vis4")
+            .append("svg")
+              .attr("width",dim)
+              .attr("height",dim);
+var gHours4 = svg4.append("g")
+    .attr("transform", "translate(" + [dim/2, dim/2] + ")");
+var gSeconds4 = svg4.append("g")
+    .attr("transform", "translate(" + [dim/2, dim/2] + ")");
+    
+var hourMarkers4 = gHours4.each(function(d) {
+  d3.select(this).call(clockFace, 12, dim/2);
+}).selectAll("circle");
+
+var secondMarkers4 = gSeconds4.each(function(d) {
+  d3.select(this).call(clockFace, 60, dim/2);
+}).selectAll("circle");
+
+secondMarkers4.attr("fill","#aaa");
+hourMarkers4.attr("fill",function(d,i){return (i == 0)?"#666":(i % 3 == 0)?"#666":"#aaa";});
+
+svg4.append("defs")
+.append("symbol").attr("id","hand")
+.append("path").attr("d","M 0 10 L 20 0 L 120 10 L 20 20 z");
+
+var secondRot4 = svg4.append("g").attr("transform","translate(150,150)")
+                    .append("g").attr("transform","rotate(0)");
+var secondHand4 = secondRot4.append("use")
+                    .attr("xlink:href","#hand")
+                    .attr("fill","#e33")
+                    .attr( "transform", "rotate(-90),scale(1.5,0.5),translate(-20,-10)");
+
+var minuteRot4 = svg4.append("g").attr("transform","translate(150,150)")
+                    .append("g").attr("transform","rotate(0)");
+var minuteHand4 = minuteRot4.append("use")
+                    .attr("xlink:href","#hand")
+                    .attr("fill","#999")
+                    .attr( "transform", "rotate(-90),translate(-20,-10)");
+var hourRot4 = svg4.append("g").attr("transform","translate(150,150)")
+                    .append("g").attr("transform","rotate(0)");
+var hourHand4 = hourRot4.append("use")
+                    .attr("xlink:href","#hand")
+                    .attr("fill","#666")
+                    .attr( "transform", "rotate(-90),scale(.75,1),translate(-20,-10)");
+
+currentTimeAnimated = function() {
+    var date = new Date();
+    var secondAngle = (date.getSeconds()/60) * 360;
+    var minuteAngle = (date.getMinutes()/60) * 360 + (secondAngle/360)*6 + ((date.getHours() % 12)*360);
+    var hourAngle = ((date.getHours() % 12)/12) * 360 + ((minuteAngle % 360)/360)*30;
+
+    hourRot4.transition().duration(2000)
+        .attrTween("transform", function() {
+          return d3.interpolateString(d3.select(this).attr("transform"), "rotate("+hourAngle+")");
+        });
+    minuteRot4.transition().duration(2000)
+        .attrTween("transform", function() {
+          return d3.interpolateString(d3.select(this).attr("transform"), "rotate("+minuteAngle+")");
+        }).each("end", function() {
+          secondRot4.transition().duration(300)
+            .attrTween("transform", function() {
+              return d3.interpolateString(d3.select(this).attr("transform"), "rotate("+secondAngle+")");
+            });
+          });
+}
+
+resetTimeAnimated = function() {
+    hourRot4.attr("transform","rotate(0)");
+    minuteRot4.attr("transform","rotate(0)");
+    secondRot4.attr("transform","rotate(0)");
+}
+
+</script><p>We need to modify it a little bit so that the hands don&rsquo;t spin counterclockwise when going from 11 to 12, or from 59 to 0. So, with minor modifications, and a Javascript timer function, we have our functioning clock widget!</p>
+
+<p><b>Script</b></p>
+<pre><code class="javascript">
+updateTime = function() {
+    var date = new Date();
+    var secondAngle = (date.getSeconds()/60) * 360;
+    var minuteAngle = (date.getMinutes()/60) * 360 + (secondAngle/360)*6;
+    var hourAngle = ((date.getHours() % 12)/12) * 360 + (minuteAngle/360)*30;
+    animateClock(hourAngle,minuteAngle,secondAngle);
+}
+
+var currHourAngle = 0;
+var currSecondAngle = 0;
+var currMinuteAngle = 0;
+
+animateClock = function(hourAngle,minuteAngle,secondAngle) {
+    hourRot.transition().duration(300)
+        .attrTween("transform", function() {
+          return d3.interpolateString("rotate("+currHourAngle+")", "rotate("+((currHourAngle &gt; hourAngle)?(360+hourAngle):hourAngle)+")");
+        }).each("end",function(){currHourAngle = hourAngle;});
+
+    minuteRot.transition().duration(300)
+        .attrTween("transform", function() {
+          return d3.interpolateString("rotate("+currMinuteAngle+")", "rotate("+((currMinuteAngle &gt; minuteAngle)?(360+minuteAngle):minuteAngle)+")");
+        }).each("end",function(){currMinuteAngle = minuteAngle;});
+
+    secondRot.transition().duration(300)
+        .attrTween("transform", function() {
+          return d3.interpolateString("rotate("+currSecondAngle+")", "rotate("+((currSecondAngle &gt; secondAngle)?(360+secondAngle):secondAngle)+")");
+        }).each("end",function(){currSecondAngle = secondAngle;});;
+          
+}
+
+window.setInterval(updateTime, 500); // Just to be safe, schedule it 2 times per second.
+
+</code></pre>
+
+<p><b>Demo</b></p>
+<div id="d3vis"></div>
+<script language="javascript1.2">
+var svg = d3.select("#d3vis")
+            .append("svg")
+              .attr("width",dim)
+              .attr("height",dim);
+var gHours = svg.append("g")
+    .attr("transform", "translate(" + [dim/2, dim/2] + ")");
+var gSeconds = svg.append("g")
+    .attr("transform", "translate(" + [dim/2, dim/2] + ")");
+    
+var hourMarkers = gHours.each(function(d) {
+  d3.select(this).call(clockFace, 12, dim/2);
+}).selectAll("circle");
+
+var secondMarkers = gSeconds.each(function(d) {
+  d3.select(this).call(clockFace, 60, dim/2);
+}).selectAll("circle");
+
+secondMarkers.attr("fill","#aaa");
+hourMarkers.attr("fill",function(d,i){return (i == 0)?"#666":(i % 3 == 0)?"#666":"#aaa";});
+
+svg.append("defs")
+.append("symbol").attr("id","hand")
+.append("path").attr("d","M 0 10 L 20 0 L 120 10 L 20 20 z");
+
+var secondRot = svg.append("g").attr("transform","translate(150,150)")
+                    .append("g").attr("transform","rotate(0)");
+var secondHand = secondRot.append("use")
+                    .attr("xlink:href","#hand")
+                    .attr("fill","#e33")
+                    .attr( "transform", "rotate(-90),scale(1.5,0.5),translate(-20,-10)");
+
+var minuteRot = svg.append("g").attr("transform","translate(150,150)")
+                    .append("g").attr("transform","rotate(0)");
+var minuteHand = minuteRot.append("use")
+                    .attr("xlink:href","#hand")
+                    .attr("fill","#999")
+                    .attr( "transform", "rotate(-90),translate(-20,-10)");
+var hourRot = svg.append("g").attr("transform","translate(150,150)")
+                    .append("g").attr("transform","rotate(0)");
+var hourHand = hourRot.append("use")
+                    .attr("xlink:href","#hand")
+                    .attr("fill","#666")
+                    .attr( "transform", "rotate(-90),scale(.75,1),translate(-20,-10)");
+                    
+updateTime = function() {
+    var date = new Date();
+    var secondAngle = (date.getSeconds()/60) * 360;
+    var minuteAngle = (date.getMinutes()/60) * 360 + (secondAngle/360)*6;
+    var hourAngle = ((date.getHours() % 12)/12) * 360 + (minuteAngle/360)*30;
+    animateClock(hourAngle,minuteAngle,secondAngle);
+}
+
+var currHourAngle = 0;
+var currSecondAngle = 0;
+var currMinuteAngle = 0;
+
+animateClock = function(hourAngle,minuteAngle,secondAngle) {
+    hourRot.transition().duration(300)
+        .attrTween("transform", function() {
+          return d3.interpolateString("rotate("+currHourAngle+")", "rotate("+((currHourAngle > hourAngle)?(360+hourAngle):hourAngle)+")");
+        }).each("end",function(){currHourAngle = hourAngle;});
+
+    minuteRot.transition().duration(300)
+        .attrTween("transform", function() {
+          return d3.interpolateString("rotate("+currMinuteAngle+")", "rotate("+((currMinuteAngle > minuteAngle)?(360+minuteAngle):minuteAngle)+")");
+        }).each("end",function(){currMinuteAngle = minuteAngle;});
+
+    secondRot.transition().duration(300)
+        .attrTween("transform", function() {
+          return d3.interpolateString("rotate("+currSecondAngle+")", "rotate("+((currSecondAngle > secondAngle)?(360+secondAngle):secondAngle)+")");
+        }).each("end",function(){currSecondAngle = secondAngle;});;
+          
+}
+
+window.setInterval(updateTime, 500); // Just to be safe, schedule it 2 times per second.
+
+</script><h2>Thoughts on D3.</h2>
+<p>My original understanding was that D3 would allow view elements to be dynamically bound to data objects, and somehow we would be able to automagically rebind and refresh the view. But instead, all it provides is a mechanism to statically bind data (array elements) to selections, and a way to create/remove/update elements based on data provided. Don’t get me wrong, this is still a powerful library that helps simplify creation of amazing visualizations. And it comes with a rich set of helper functions around plot axis management, geo mapping, time slicing, interpolating string/colors/hues, etc. Just look at all visualizations its creator made while working for the New York Times. <a href="http://bost.ocks.org/mike/">http://bost.ocks.org/mike/</a></p>
+
+<p>But having built a mark-up based framework way back in the past for J2ME and WindowsMobile (pre WindowsPhone7) phones that allowed for some pretty powerful interactions using dynamically bound data and view nodes, I’m left yearning for more. This is pre-iPhone days we are talking about here&hellip; May be I’ll just build that dream framework as part of my 12in12 this year. I already have a name and github repo for it&hellip; <a href="https://github.com/thekumar/just">JuST need to work on JuST!</a> ;)</p>

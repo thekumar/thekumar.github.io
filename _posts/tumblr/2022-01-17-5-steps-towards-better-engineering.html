@@ -1,0 +1,31 @@
+---
+layout: post
+title: 5 Steps Towards Better Engineering.
+date: '2022-01-17T02:21:00-08:00'
+tags: []
+tumblr_url: https://blog.vijayarunkumar.com/post/673609480512159744/5-steps-towards-better-engineering
+---
+<p>I just realized that I haven’t posted anything to my blog since my dad’s passing, and this post has been in my draft since about 2 days after Tim Dodd’s interview was uploaded onto Youtube. It’s still worth a read.</p>
+<p>I “recently” (retroactively applied) watched an interview of Elon Musk by Tim Dodd, the Everyday Astronaut, and in it he listed 5 steps every project must follow to be successful. I couldn’t agree more with him, and at the risk of coming across as an Elon fanboy, I wanted to share them here:<br/></p>
+<!-- more -->
+<h2>1. Question your requirements, or bluntly put, “make a requirement less dumb.”</h2>
+<p>Even smart people are dumb some of the time. So question every feature requirement that comes along your way. Especially, if it’s coming from a smart person.</p>
+<p>Product managers and customers ask for many things, and a lot of it truly necessary. But, some of their asks may sound like necessary feature requests on the surface, but once you dig deeper, the reason for the ask might be moot or can be solved in a simpler way with less work or no work. Question whether requirements are actually necessary, or if they can be simplified and made better, or be eradicated.</p>
+<h2>2. Delete the part, delete the process.</h2>
+<p>This follows logically from #1, but is more of an active conscious effort to remove clutter that adds to unnecessary complexity. Every single additional feature you implement adds one more item that can and will fail, needs to be tested, requires additional maintenance, and increases complexity and adds to backwards compatibility headaches when developing new more important features.</p>
+<p>So, cut down ruthlessly on what you deliver, and build only what is absolutely necessary. Spring clean your spring board.</p>
+<h2>3. Simplify, then optimize.</h2>
+<p>Do step #1 and #2 before you start to optimize features. If you’ve eradicated the part/feature completely, there is no need to optimize it at all. Think of it as 100% optimization at 0% cost.</p>
+<h2>4. Accelerate cycle time.</h2>
+<p>This is about iterative development, and to speed up spec, implementation, test, and evaluation time. If you’ve worked on Agile teams, you probably are already accustomed to fast iterations&hellip; but even then, it’s good to always think of a project as a bunch of small iterative MVPs that are built and validated quickly.</p>
+<p>Yes, this may not always seem feasible, especially in long term large scale efforts. But, when SpaceX is launching, testing, failing, and iterating on giant Startships, you really have no excuses to claim you can’t practice this in your software project.</p>
+<h2>5. Automate.</h2>
+<p>Once you’ve figured out how to do something consistently at an acceptable standard, then automate it. Automation is the last step, but it’s critical.</p>
+<p>A. It will improve quality of your outcomes by minimizing variance in operations and eradicate operator error; and</p>
+<p>B. It frees you up to work on other cool and more fulfilling things.</p>
+<p>No engineer wants to be repeating the same mundane manual process day after day, week after week, month after month&hellip; You do it manually once or twice to figure it out, but then as soon as you have it figured&hellip; AUTOMATE!</p>
+<p>But, remember not to rush and do things out of order. We are struggling to get past #1 and #2 at my current work but are already automating things, and it is just soul sucking every time I have to do the monthly bill run, where a bunch of script automations have to be manually kicked off in sequence over a period of 5 days&hellip; Ahem! I have said too much.</p>
+<p>Seriously though, #2 is probably the most important step. While the rest of my org is skipping to #5, I myself have made the blunder of optimizing performance for steps that shouldn’t exist in the first place, albeit while I’m fully aware of it. For instance, we have a manual workflow that involves exporting data as CSV which then gets validated by another team&hellip; and I have optimized memory utilization and implemented multipart uploads for this CSV generation step.</p>
+<p>Am I proud of it? Uhhhh&hellip; Quick! Look here! Elon Musk!</p>
+<p><a href="https://www.youtube.com/watch?v=t705r8ICkRw&amp;t=800s">https://www.youtube.com/watch?v=t705r8ICkRw&amp;t=800s</a> </p>
+<p>I have linked directly to the part where he talks about the 5 step process, but the entire video (along with Part 2) is very informative and totally worth your time.</p>

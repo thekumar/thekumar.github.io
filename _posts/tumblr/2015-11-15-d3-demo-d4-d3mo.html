@@ -1,0 +1,284 @@
+---
+layout: post
+title: D3 Demo... D3MO? - part 1
+date: '2015-11-15T16:21:16-08:00'
+tags:
+- d3
+- d3js
+- demo
+- 52by52
+tumblr_url: https://blog.vijayarunkumar.com/post/133290782088/d3-demo-d4-d3mo
+---
+<p>My goal last week was to get a basic understanding of D3.js and to build a basic demo. A simple bar chart? a pie chart may be? But, the more I learned about it, I found out that it was way more powerful framework for data-binding &amp; visualization, that to limit it to just charts felt like a crime :/ I didn’t want to build a simple chart anymore. <b>I wanted to build a clock!</b> Hopefully, these demos work on my blog :) (Also, this would be my first post with code. Entering new territory here on tumblr.)</p>
+
+<p>Obviously D3 is a vast powerful framework, and I can&rsquo;t cover all of it in a week. So, instead of claiming I learnt D3 in a week, I will instead post code &amp; demos to showcase how far I have progressed. In this first part of the series, I&rsquo;m gonna try and walk you through building the Clock Face, and along the way, introduce you to some core concepts in D3</p>
+
+<h2>Start with the Basics!</h2>
+<p>Let&rsquo;s start by building a simple circle. Apparently, circular clocks have been all the rage with the kids since like&hellip; before the Grand Canyon was formed. Anyway, the simple way to draw a circle in HTML5 is to use SVG (Scalable Vector Graphics). I&rsquo;m not gonna go into the details of SVG here, but here&rsquo;s the HTML that would give us a circle.</p>
+
+<pre><code class="html">
+&lt;svg width="100" height="100"&gt;
+  &lt;g transform="translate(50,50)"&gt;
+    &lt;circle r="45"/&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;
+</code></pre>
+
+<p>And here&rsquo;s the D3 way of generating that. Let&rsquo;s provide a simple target DIV element inside which we will generate the SVG.</p>
+
+<p><b>DOM</b>
+</p><pre><code class="html" title="DOM">&lt;div id="vis"/&gt;
+</code></pre>
+
+<p><b>Script 1:</b>
+</p><pre><code class="javascript" title="Script">
+var dim = 300;
+var svg = d3.select("#vis")
+            .append("svg")
+              .attr("width",dim)
+              .attr("height",dim);
+var circle = svg.append("g")
+              .attr("transform","translate("+[dim/2,dim/2]+")")
+              .append("circle")
+                .attr("r", (dim/2) * .9);
+              
+</code></pre>
+
+<p><b>Demo 1:</b>
+</p><div id="d3vis1"></div>
+<script type="text/javascript1.2">
+var dim = 300;
+var svg1 = d3.select("#d3vis1")
+            .append("svg")
+              .attr("width",dim)
+              .attr("height",dim);
+var circle1 = svg1.append("g")
+              .attr("transform","translate("+[dim/2,dim/2]+")")
+              .append("circle")
+                .attr("r",  (dim/2) * .9);
+</script>
+<!-- more -->
+<h3>Selectors</h3>
+<p>If you are familiar with JQuery or CSS Selectors, you already know how selectors work, and how powerful they can be in quickly applying a function on a list of elements. D3 works the same way, except the API is designed in such a way that every function returns a reference to the Selection it was applied on as well, so that you can chain calls gracefully like &ldquo;attr()&rdquo; above. The only exception is when the function creates a new selection, in which case that selection is returned.</p>
+<p>So, in the above code, <b>d3.select(&ldquo;#d3vis1&rdquo;)</b> returns the selection for the div element, following which, <b>append(&ldquo;svg&rdquo;)</b> returns the selection containing the newly created svg element.</p>
+<p>Okay, it&rsquo;s kinda cool that I don&rsquo;t have to do document.getElementById() all over the place, and the having every function return the selector it was applied on makes chaining calls easy&hellip; But I could do that with JQuery, and I don&rsquo;t see what&rsquo;s the hype about D3. Let&rsquo;s explore something a bit more complex to understand D3&rsquo;s most powerful feature&hellip;</p>
+<h3>Bindings.</h3>
+
+<p>Now instead of just one circle, let&rsquo;s draw 12 circles.</p>
+
+<p>First, the iterative way.</p>
+
+<pre><code class="javascript">
+var svg = d3.select("#vis")
+            .append("svg")
+              .attr("width",dim)
+              .attr("height",dim);
+              
+for (i = 0; i &lt; 12; i++) {
+  svg1.append("g")
+    .attr("transform","translate("+[i*dim/12 + dim/24,dim/2]+")")
+    .append("circle")
+      .attr("r",  (dim/2) * .9);
+}</code></pre>
+
+<p>and the D3 way&hellip;</p>
+
+<pre><code class="javascript">
+var svg = d3.select("#vis")
+            .append("svg")
+              .attr("width",dim)
+              .attr("height",dim);
+var circles = svg.selectAll("g")
+                .data(d3.range(12))
+                  .enter().append("g")
+                    .attr("transform",function(d){
+                      return "translate("+[(d)*dim/12 + dim/24,dim/2]+")";
+                      })
+                    .append("circle")
+                      .attr("r",  (dim/2) * .9 / 12);
+</code></pre>
+
+<p><b>Demo 2:</b></p>
+<div id="d3vis2"></div>
+<script type="text/javascript1.2">
+var svg2 = d3.select("#d3vis2")
+            .append("svg")
+              .attr("width",dim)
+              .attr("height",dim);
+var circles2 = svg2.selectAll("g")
+                .data(d3.range(12))
+                .enter().append("g")
+                .attr("transform",function(d){
+                  return "translate("+[(d)*dim/12 + dim/24,dim/2]+")";
+                  })
+                .append("circle")
+                  .attr("r",  (dim/2) * .9 / 12);
+</script><p>It may be hard to see the benefits of this approach right away, but notice how we were able to bind specific values of &ldquo;d&rdquo; (which is a range going from 0..11), and create elements for each of those values automatically, and in the end, automatically get the selection of all &ldquo;circles&rdquo; that were created in one step, even though they are a bunch of second-level elements from the node where data binding was applied. It may take a bit of effort in the beginning, but once you start wrapping you mind around it, coding with D3 becomes a thing of beauty. (Nerdgasm!)</p>
+
+<p>Let&rsquo;s make things a bit more complicated and create a clock face. Let&rsquo;s draw the 12 inside a circle for the hour markers. And instead of having a for loop, lets do a simple binding operation on an array containing the numbers 1 through 12 to generate our circles.</p>
+
+<p><b>Script 3:</b>
+</p><pre><code class="javascript" title="Script">
+var svg = d3.select("#vis")
+            .append("svg")
+              .attr("width",dim)
+              .attr("height",dim);
+var g = svg.append("g")
+    .attr("transform", "translate(" + [dim/2, dim/2] + ")");
+    
+var circles = g.each(function(d) {
+  d3.select(this).call(clockFace, 12, dim/2);
+}).selectAll("circle");
+
+function clockFace(selection, numDots, size) {
+  offset = 0;
+  radius = numDots * size / (numDots + 2);
+  deltaY = (numDots % 2 == 0)?0:(radius / 2) * (1 - Math.cos(Math.PI / numDots));
+  selection.selectAll("g")
+    .data(d3.range(numDots))
+    .enter().append("g")
+      .attr("transform",function(d) {
+        var angle = d * 360 / numDots + offset;
+        return "translate(0,"+deltaY+")rotate("+angle+")translate("+radius+")rotate("+ -angle + ")";
+      })
+      .append("circle").attr("r",0.9*(size)/(numDots));
+}              
+</code></pre>
+
+<p><b>Demo 3:</b>
+</p><div id="d3vis3"></div>
+<script type="text/javascript1.2">
+var svg3 = d3.select("#d3vis3")
+            .append("svg")
+              .attr("width",dim)
+              .attr("height",dim);
+var g3 = svg3.append("g")
+    .attr("transform", "translate(" + [dim/2, dim/2] + ")");
+    
+var circles3 = g3.each(function(d) {
+  d3.select(this).call(clockFace, 12, dim/2);
+}).selectAll("circle");
+
+function clockFace(selection, numDots, size) {
+  offset = 0;
+  radius = numDots * size / (numDots + 2);
+  deltaY = (numDots % 2 == 0)?0:(radius / 2) * (1 - Math.cos(Math.PI / numDots));
+  selection.selectAll("g")
+    .data(d3.range(numDots))
+    .enter().append("g")
+      .attr("transform",function(d) {
+        var angle = d * 360 / numDots + offset;
+        return "translate(0,"+deltaY+")rotate("+angle+")translate("+radius+")rotate("+ -angle + ")";
+      })
+      .append("circle").attr("r",0.9*(size)/(numDots));
+}
+</script><p>
+Notice how easy it was to get a reference to all the circles you just created. Anyway, to draw the second/minute markers, we just need to call the same clockFace function with 60&hellip; Right?
+</p>
+
+<p><b>Script 4:</b>
+</p><pre><code class="javascript" title="Script">
+    
+var hourMarkers = g.each(function(d) {
+  d3.select(this).call(clockFace, 12, dim/2);
+}).selectAll("circle");
+
+var secondMarkers = g.each(function(d) {
+  d3.select(this).call(clockFace, 60, dim/2);
+}).selectAll("circle");
+
+</code></pre>
+
+<p><b>Demo 4:</b>
+</p><div id="d3vis4"></div>
+<script type="text/javascript1.2">
+var svg4 = d3.select("#d3vis4")
+            .append("svg")
+              .attr("width",dim)
+              .attr("height",dim);
+var g4 = svg4.append("g")
+    .attr("transform", "translate(" + [dim/2, dim/2] + ")");
+    
+g4.each(function(d) {
+  d3.select(this).call(clockFace, 12, dim/2);
+}).selectAll("circle");
+
+g4.each(function(d) {
+  d3.select(this).call(clockFace, 60, dim/2);
+}).selectAll("circle");
+</script><p>Wait a minute! What happened there? Why are there only 48 second dots, instead of 60?</p>
+
+<p>That&rsquo;s because we are using the enter() data-binding function in our code, which defines how to create objects for additional data-points that don&rsquo;t have backing DOM elements from the results of the selection. So, in our case, there were already 12 circles created which get skipped.</p>
+
+<p>One simple way to fix this is to have two separate top-level graphics contexts created, and draw into each one, so you won&rsquo;t find the 12 existing ones during the second call.</p>
+
+<p><b>Script 5:</b>
+</p><pre><code class="javascript" title="Script">
+var gHours = svg.append("g")
+    .attr("transform", "translate(" + [dim/2, dim/2] + ")");
+var gSeconds = svg.append("g")
+    .attr("transform", "translate(" + [dim/2, dim/2] + ")");
+    
+var hourMarkers = gHours.each(function(d) {
+  d3.select(this).call(clockFace, 12, dim/2);
+}).selectAll("circle");
+
+var secondMarkers = gSeconds.each(function(d) {
+  d3.select(this).call(clockFace, 60, dim/2);
+}).selectAll("circle");
+
+</code></pre>
+
+<p><b>Demo 4:</b>
+</p><div id="d3vis5"></div>
+<script type="text/javascript1.2">
+var svg5 = d3.select("#d3vis5")
+            .append("svg")
+              .attr("width",dim)
+              .attr("height",dim);
+var gHours = svg5.append("g")
+    .attr("transform", "translate(" + [dim/2, dim/2] + ")");
+var gSeconds = svg5.append("g")
+    .attr("transform", "translate(" + [dim/2, dim/2] + ")");
+    
+var hourMarkers = gHours.each(function(d) {
+  d3.select(this).call(clockFace, 12, dim/2);
+}).selectAll("circle");
+
+var secondMarkers = gSeconds.each(function(d) {
+  d3.select(this).call(clockFace, 60, dim/2);
+}).selectAll("circle");
+</script><p>Let me also introduce you to the function(d,i) signature for biding data to functions. So, function(d) signature can be used on attr() as well as call() functions to bind each array element in data d to each sekection element. You can also use the function(d,i) signature to get the array index passed in as well. And if there&rsquo;s no data bound to the selection, you can still use function(d,i) to get the index of the element in your selection. (Basically, you have bound null data to the operation)</p>
+
+<p>So, let&rsquo;s try and make every 3rd hour marker a different color than the rest.</p>
+
+<p><b>Script 6:</b></p>
+<pre><code class="javascript" title="Script">
+secondMarkers.attr("fill","#aaa");
+hourMarkers.attr("fill",function(d,i){return (i == 0)?"#666":(i % 3 == 0)?"#666":"#aaa";});
+
+</code></pre>
+<p><b>Demo 6:</b></p>
+<div id="d3vis6"></div>
+<script type="text/javascript1.2">
+var svg6 = d3.select("#d3vis6")
+            .append("svg")
+              .attr("width",dim)
+              .attr("height",dim);
+var gHours6 = svg6.append("g")
+    .attr("transform", "translate(" + [dim/2, dim/2] + ")");
+var gSeconds6 = svg6.append("g")
+    .attr("transform", "translate(" + [dim/2, dim/2] + ")");
+    
+var hourMarkers6 = gHours6.each(function(d) {
+  d3.select(this).call(clockFace, 12, dim/2);
+}).selectAll("circle");
+
+var secondMarkers6 = gSeconds6.each(function(d) {
+  d3.select(this).call(clockFace, 60, dim/2);
+}).selectAll("circle");
+
+secondMarkers6.attr("fill","#aaa");
+hourMarkers6.attr("fill",function(d,i){return (i % 3 == 0)?"#666":"#aaa";});
+
+</script><p>In the next part, we&rsquo;ll explore how to apply transitions, and update elements by binding new data to them. i.e, build the clock hands and bind them to the current time.</p>

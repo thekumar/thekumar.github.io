@@ -1,0 +1,28 @@
+---
+layout: post
+title: Feature Creep!
+date: '2013-05-22T17:38:00-07:00'
+tags: []
+tumblr_url: https://blog.vijayarunkumar.com/post/51096842522/feature-creep
+---
+<p>I know I made a post earlier about the biggest pitfall in Project Management being Feature Creep. But here I am, dealing with the problem myself. I started out on my new project with a simple app in mind, that had some slightly complicated math behind it. The idea was simple&hellip; Let people shoot videos as ink sketch animations! In case you haven&rsquo;t seen what it looks like on my twitter feed yet, here&rsquo;s a pic.</p>
+<p><figure class="tmblr-full" data-orig-height="667" data-orig-width="500"><img alt="image" src="https://64.media.tumblr.com/d87238e8b021d6497b75ca221993697b/a7ae34977ac2efbd-be/s540x810/32f1301897c36630260361dd18a38980f4466917.jpg" data-orig-height="667" data-orig-width="500"/></figure></p>
+
+<p>I got that to run at a smooth 60fps on my iPad3 at a 1080p Square Resolution, and around 27fps on my 3 year old iPhone 4 at a 480p square :) I&rsquo;m sure I can get it to run at 1080p^2 on the newer 4S and 5 devices. </p>
+<p>Tasks involved so far:</p>
+<ul><li>Algorithm to convert Video Frames into sketches really fast.</li>
+<li>Learn GPU programming. Either through OpenGL, or using libraries such as OpenCV and GPUImage.</li>
+<li>Design UI w/ Record/Stop Button that saves to the Photo Library.</li>
+</ul><p>Then I thought, may be I should have different kinds of animation effects. That led me to designing an interface to select different effects. Sounds pretty simple. Why not?</p>
+<ul><li>Single View App to Multiple Views</li>
+<li>Build multiple Effects, and create a whole class hierarchy for abstracting common functionality among all effects.</li>
+<li>Build an effect selector, that shows a list of effect icons, that you tap to get to the recording interface with that effect applied. A simple Table View&hellip; May be a side-scrolling &ldquo;Belt&rdquo; like the one found in Fotoyaki.</li>
+</ul><p>But, the effect selector was boring. Being a UI Snob, and due to my recent obsession with minimalism – <em>a total 180 from the Skeuomorphic clusterf**** found in Fotoyaki –</em> and &ldquo;zero-appiness&rdquo; like the design found in Flipboard, I went about getting creative with the UI for selecting effects. I kinda showed a preview of it in my ugly prototype from the last post.</p>
+<p>Well, if splitting the video feed and applying different effects to different regions was a small speed bump to get over&hellip; making those effects scroll on top of the video feed <em>&ldquo;as smooth as butter&rdquo;</em> is like climbing K2. That&rsquo;s where I&rsquo;m at now. Not on top of that mountain, but barely at basecamp.</p>
+<ul><li>Split the Video feed and apply different effects to different regions.</li>
+<li>Create a custom Scrolling View that hooks into the UIScrollView&rsquo;s CoreAnimation layers to track its current position and adjust the video splits, and choose the appropriate effects to be applied.</li>
+</ul><p>And as if that wasn&rsquo;t enough, I want the app to allow you to shoot videos in scenes. So, instead of Record/Stop. It&rsquo;s Record-&gt;Pause-&gt;(Select different effect &amp; Continue Recording)-&gt;Stop. It&rsquo;s a really simple way to make movies with multiple scenes in them. (ala Vine, only longer).</p>
+<ul><li>Figure out how to manage Scenes, and append Live Video to the end of previous recording. (And implement it of course)</li>
+</ul><p>And finally, the thing that made me realize all the feature creep that went into the project thus far. I want to build a whole backend component to the  app for 1. Simple Sharing, 2. Really cool collaborative video making&hellip; Alright STOP!!! Save it for V2!</p>
+<p>Anyway, I still think I can get all this done within the month, and ready for testing. I originally planned on working on the first three task bullet points over a month from June 1st - July 1st. I&rsquo;ve been working on this part-time since May 8th – <em>My full-time hours these days are spent on finding my next paycheck</em> ;) So, In about 2 more weeks&hellip; June 8th? If you want in on the Test phase, let me know, and I can send you a TestFlight invite to try out the app first hand.</p>
+<p>But, more importantly, if you are looking for a Software Engineer w/ mad skillz. Check out my resume at <a href="http://vijayarunkumar.com/resume.pdf">http://vijayarunkumar.com/resume.pdf</a> and <strong>Hire me!</strong></p>

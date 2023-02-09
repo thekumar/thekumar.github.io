@@ -1,0 +1,14 @@
+---
+layout: post
+title: This Lunch Ain't Free Either
+date: '2013-05-07T04:12:00-07:00'
+tags: []
+tumblr_url: https://blog.vijayarunkumar.com/post/49843216105/this-lunch-aint-free-either
+---
+<p>So, I got all too excited a bit prematurely yesterday. You see, that line drawing of my parents&rsquo; backyard - It was performing good enough because I was limiting video capture to a pretty low resolution of 322x240 pixels. Even old school VGA (640x480) has 4 times as many pixels as that, and my iPhone 4 capturing video at 720p (1280x720) produces videos with 12 times as many.</p>
+<p>I knew this wasn&rsquo;t gonna be an easy task. Just a few lines of code using a readily available open source library, and that is it? I was a bit surprised, and was feeling a bit let down, by how quickly it all seemed to have worked itself out yesterday. But, today when I increased the resolution.. my iPhone chugged along barely at 4fps for VGA, and both my iPhone and my iPad 3 Retina came to a screeching halt at higher resolutions.</p>
+<p>Does this mean the app is not feasible? Of course not! The simplest solution would be for me to limit the output of my app to generate only low-res videos. But, where&rsquo;s the fun in that? Also, being a usability snob, I would cringe at the idea of limiting the user to an inferior video quality, after they&rsquo;ve gotten used to a retina display.</p>
+<p>So, this lunch ain&rsquo;t free. Okay, let&rsquo;s skip to the dessert menu and get to the good news then.</p>
+<p><strong>OpenCV on iPhone is not OpenCL based, and thus, not GPU accelerated.</strong></p>
+<p>Under usual circumstances, this would&rsquo;ve been considered to be bad news. But here, it also means it&rsquo;s not the end of the road. Using CPU for image manipulation (large byte arrays of pixel values) is just a bad idea. I mean, look at Fotoyaki. I used my own simple algorithms that run on the CPU, and to deal with the delay involved, I had to come up with snarky comments to distract and keep the user happy while their phone chugged along. Compare that to the real-time effects of an App like Instagram.</p>
+<p>I just have to write my own OpenGL ES code to get all that lovely math to run fast on the GPU&hellip; and GPUs are very good at their math skills. Now, if only I knew how to do that :)</p>

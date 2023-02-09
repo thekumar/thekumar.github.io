@@ -1,0 +1,236 @@
+---
+layout: post
+title: Elevator System Design
+date: '2020-02-11T00:22:08-08:00'
+tags: []
+tumblr_url: https://blog.vijayarunkumar.com/post/190766576403/elevator-system-design
+---
+<p>I came across an interesting System Design interview question.</p>
+
+<blockquote>
+  <p>I have a building with 50 floors. I would like to have 4 elevators to serve the people of this building. How would you go about designing for this?</p>
+</blockquote>
+
+<p>On the surface, this looks like a very simple arrays/lists/counts based algorithm problem. But I very quickly realized this wasn&rsquo;t a question on manipulating lists and such, but actually a question about Inteface design and separation of concerns between various components in a system. Of course, I most likely bombed when it came to answering this question, because the design I came up with was embarrassingly lacking in terms of clean separation of concerns.</p>
+
+<p>But, for an interview that spans 45-mins to 1-hour, I hope the purpose of the question isn&rsquo;t to judge whether the candidate can come up with the cleanest most optimum solution, but instead, rather assess how they think about componentizing different aspects of functionality vs. optimizing for performance vs. readability vs. upgradability, etc. Is the code monolithic (too vertically integrated)? Are components spread out too thin (too separated with having to follow multiple classes to understand a simple action)? Is it a balanced approach? Is there even such thing as a balanced approach? :)</p>
+
+<p>Anyway, after the interview was over, I wondered what kind of a system I would actually be happy about committing to a source repo if I was actually tasked to come up with it at work. And thus, I began going down a rabbit hole of designing the components of a building elevator system with details all the way down to the button, light, and motor controls :/</p>
+
+<p>Hold up! Let&rsquo;s follow the KISS principle and Keep It Stupid Simple. (I know that it&rsquo;s actually &ldquo;keep it simple, stupid!&rdquo; but in the spirit of self love and self respect I would like to&hellip; you get the point.)</p>
+
+<p>The basic principle followed at every level of the design was to ensure that the design allows for <strong>testability</strong>, <strong>abstraction</strong>, <strong>encapsulation</strong>, and <strong>separation of concerns</strong>.</p>
+
+<p>The design I’ve come up with &ndash; BTW, feel free to dissect and criticize as you wish &ndash; is as follows. A Building has floors and zero or more elevator shafts. The shafts each contain one elevator and are responsible for moving them up and down the floors. There is a central controller that orchestrates which elevator shaft should service a call at any floor. And each elevator is responsible for the actions riders take within one such as selecting the desired floor, opening the door, etc.</p>
+
+<p>Let&rsquo;s define the interfaces&hellip;</p>
+
+<p><!-- more --></p>
+
+<h2>Interfaces &amp; Dependency Injection:</h2>
+
+<p>The four basic interfaces I came up with are:</p>
+
+<ul><li>IBuilding</li>
+<li>IElevatorShaft</li>
+<li>IElevator</li>
+<li>IElevatorCallController</li>
+</ul><p>To make it testable, and easy to come up with various configurations, I also had abstract factories for each of those defined.</p>
+
+<ul><li>IBuildingFactory
+
+<ul><li>createBuilding(options: IBuildingOptions, eccf: IElevatorCallControllerFactory, esf: IElevatorShaftFactory, ef: IElevatorFactory)</li>
+<li>IBuildingOption {numFloors: number, numShafts: number)</li>
+</ul></li>
+<li>IElevatorShaftFactory
+
+<ul><li>createElevatorShaft(options: IElevatorShaftOptions, ef: IElevatorFactory)</li>
+</ul></li>
+<li>IElevatorFactory
+
+<ul><li>createElevator(options: IElevatorOptions)</li>
+</ul></li>
+<li>IElevatorCallControllerFactory
+
+<ul><li>createElevatorCallController(shafts: IElevatorShaft[])</li>
+</ul></li>
+</ul><p>You can see how dependency injection is used here to provide all of the dependencies at each level. There is a bit of balance to be struck here in terms of code readability and testability. As you can tell from above, the ElevatorFactory needs to be passed in through all the layers (Building -&gt; ElevatorShaft -&gt; Elevator), and this could get out of hand. For a good (i.e, bad) example, look at any Guice based project&rsquo;s codebase, and you will come across plenty of nested factories. DI Frameworks such as Spring (and Guice as well) help you avoid this issue and preserve readability in your code through annotations and autmagically injecting the dependencies through reflection. They acheive this primarily by employing Factory Provider and Service Locator patterns, but that&rsquo;s for a future post.</p>
+
+<p>Let&rsquo;s take a look at what actually is handled by each interface&hellip;</p>
+
+<h2>Separation of Concerns:</h2>
+
+<h3>IElevator</h3>
+
+<p>IElevator is only concerned with the properties and actions of a single elevator. What might these involve?</p>
+
+<ul><li><strong>requestFloor</strong>(floor: number) - Pressing a floor</li>
+<li><strong>openDoor</strong>(): void - Opening the elevator door. Mind you, this does not include the shaft door.</li>
+<li><strong>closeDoor</strong>(): void - Closing the elevator door.</li>
+<li><strong>addPerson</strong>(): void - A person entered the elevator.</li>
+<li><strong>removePerson</strong>(): void - A person exited the elevator.</li>
+<li>Additional elevator attributes such as rider capacity, current rider count, etc.</li>
+</ul><blockquote>
+  <p>NOTE: This is just a basic interface. If we wanted, we could also specify which person entered, and who exited for finer tracking abilities. But for the sake of simplicity, I&rsquo;m leaving those details out.</p>
+</blockquote>
+
+<h3>IElevatorShaft</h3>
+
+<p>IElevatorShaft is only concerned with the properties and actions of a single elevator shaft.</p>
+
+<ul><li><strong>moveElevator</strong>(floor: number) - move elevator to floor X.</li>
+<li><strong>openDoor</strong>(floor: number) - open the shaft door at floor X (and ideally instruct the elevator to open its door as well)</li>
+<li><strong>closeDoor</strong>(floor: number)</li>
+<li>additional shaft attributes such as range of floors serviced by this shaft, elevator’s current direction of travel within the shaft, etc.</li>
+<li><strong>getElevator()</strong> - of course, the elevator in the shaft.</li>
+</ul><p>Let’s pause here to notice that the actual motor drive system for both the elevator cable as well as the doors themselves is abstracted away here. Those are additional details that can be handled by the implementations of IElevator and IElevatorShaft.</p>
+
+<h3>IElevatorCallController</h3>
+
+<p>IElevatorCallController is only concerned with figuring out some way of scheduling an elevator to handle a call at any given floor.</p>
+
+<ul><li><strong>scheduleElevatorForCall</strong>(floor: number, direction: UP|DOWN)</li>
+</ul><h3>IBuilding</h3>
+
+<p>IBuilding is only concerned with the properties and actions of the building. To keep it simple, for now let’s just say this is the only action provided by the interface.</p>
+
+<ul><li><strong>callElevator</strong>(floor: number, direction: UP|DOWN): void</li>
+<li><strong>getShafts</strong>(): IElevatorShaft[]</li>
+</ul><h2>Communicating through Delegates</h2>
+
+<p>So far, we have isolated the basic actions and properties within each interface. However, these concepts don&rsquo;t exist in the void by themselves, and have a need to interact with each other. For instance, when an ElevatorShaft <em>instructs</em> an Elevator to open it&rsquo;s door, it may need to <em>notify back</em> to the shaft after the action was performed. Or, an Elevator might have to notify to its ElevatorShaft that its running at full capacity.</p>
+
+<p>Or, if we want to dive deeper, when a rider presses a floor, the Elevator might have a need to check whether that floor is serviced by its particular shaft before it lights up the button. We see that an ElevatorShaft contains an Elevator, so that communication is take care of. And for the callbacks, we can have the Elevator contain a ElevatorShaft reference as well, and we are done, right? What&rsquo;s the big deal?</p>
+
+<p>Nope! If we did that, 1. we would introduce a circular dependency and tightly couple the interfaces. 2. ElevatorShaft composes an Elevator, thus needs to know about IElevator. However, Elevator need not know about IElevatorShaft.</p>
+
+<p>We still want the callbacks to happen but have the objects be loosely coupled. One way to achieve the necessary communication and still maintain decoupling between the interfaces is through the Delegate Pattern. i.e, IElevator would communicate with an IElevatorDelegate for its back and forth communication needs. In the concrete implementation, the same object (the concrete ElevatorShaft instance) will satisfy the needs of both the IElevatorShaft and IElevatorDelegate, but the interfaces are not coupled. This might not seem that important, but it helps a lot with testability where we can pass different fake and mock those methods independently.</p>
+
+<p>To make it more clear, let&rsquo;s go one level deeper and look at IElevator and its buttons IButton. IElevator needs to know about the IButton interface since it composes of a bunch on buttons. But IButton need not be coupled with IElevator. Instead, it can just rely on implementers of IButtonDelegate. That way, the same button can be used in an Elevator, or in a Keyboard, or on a Wall, etc.</p>
+
+<pre><code>interface IElevatorDelegate {
+  // Basic
+  handleFloorKeyPress(floor: number, sender: IElevator): boolean; // return true if allowed, false otherwise.
+  handleDoorOpened(sender: IElevator): void; // Door opened
+  handleDoorClosed(sender: IElevator): void; // Door closed
+
+  // Advanced
+  handleCallKeyPress(sender: IElevator): boolean;
+  handleCancelKeyPress(sender: IElevator): boolean;
+  handleDoorOpenKeyPress(sender: IElevator): boolean;
+  handleDoorCloseKeyPress(sender: IElevator): boolean;
+}
+</code></pre>
+
+<h2>Putting it all together</h2>
+
+<p>I&rsquo;m not gonna cover implementing concrete objects for all interfaces in this post. But with the above interfaces, let’s consider how two buildings might be constructed.</p>
+
+<p>Building A - A wooden 4-story building with a single elevator made by Schindler Lifts.</p>
+
+<p>Building B - A concrete 50-story building with 4 elevators made by Otis Lifts.</p>
+
+<pre><code>class Building implements IBuilding {
+  ecc: IElevatorCallController;
+  shafts: IElevatorShafts[];
+  numFloors: number;
+  constructor(numFloors: number, ecc: IElevatorCallController, shafts: IElevatorShaft[]) {
+    this.numFloors = numFloors;
+    this.ecc = ecc;
+    this.shafts = shafts;
+  }
+
+  callElevator(floor: number, direction: UP|DOWN): void {
+    this.callController.scheduleElevatorForVCall(floor, direction);
+  }
+}
+
+class WoodenBuilding extends Building implements IElevatorShaftDelegate{
+  // ... all wood building specific props
+  constructor(shafts: IElevatorShaft[]) {
+    for ( var shaft: IElevatorShaft in shafts ) {
+      shaft.setDelegate(this); // Set self as delegate
+    }
+  }
+}
+
+class ConcreteBuilding extends Building {
+  // ... all concrete building specific stuff
+}
+
+class WoodBuildingFactory implements IBuildingFactory{
+  createBuilding(options: IBuildingOptions, eccf: IElevatorCallControllerFactory, esf: IElevatorShaftFactory, ef: IElevatorFactory) {
+    let ecc = null;
+    let shafts = [];
+    if (options.numShafts &gt; 0) {
+      for ( var i = 0; i &lt; numShafts; i++) {
+        let es = esf.createElevatorShaft(ef);
+        shafts.push(es);
+      }
+      if (eccf != null) {  
+        ecc = eccf.createElevatorCallController(shafts);
+      }
+    }
+    return new WoodBuilding(shafts);
+  }
+}
+
+class ConcreteBuildingFactory implements IBuildingFactory{
+  // ... similar stuff goes here.
+}
+
+// A generic dumb call controller that round robins through all available shafts.
+class GenericCallController implements IElevatorCallController {
+  shafts: IElevatorShaft[];
+  currShaft: number;
+  constructor(shafts: IElevatorShaft[]) {
+    this.shafts = shafts;
+  }
+
+  scheduleElevatorForCall(floor: number, direction: UP|DOWN) {
+    shafts[currShaft].
+    currShaft = currShaft++ % len(shafts);
+  }
+}
+
+// A more advanced call controller that might use specialized algorithms to maximize people flow.
+class OtisMultiShaftCallController implements IElevatorCallController {
+  //...
+}
+
+class OtisElevatorShaft implements IElevatorShaft, IElevatorDelegate {
+  //...
+}
+
+//...
+//...
+//... and so on.
+</code></pre>
+
+<p>and to instantiate the buildings, you would simply code something along the lines of&hellip;</p>
+
+<pre><code>func main() {
+  //...
+  //...
+  let buildingA = WoodenBuildingFactory.createBuilding(
+      {numFloors: 4, numShafts: 1},
+      SchindlerCallControllerFactory.getInstance(),
+      SchindlerElevatorShaftFactory.getInstance(),
+      SchindlerElevatorFactory.getInstance());
+  let buildingB = ConcreteBuildingFactory.createBuilding(
+      {numFloors: 50, numShafts: 4},
+      OtisCallControllerFactory.getInstance(),
+      OtisElevatorShaftFactory.getInstance(),
+      OtisElevatorFactory.getInstance());
+  //...
+  //...
+}
+</code></pre>
+
+<p>A few things to note above.</p>
+
+<p>Even though I haven&rsquo;t included concrete implementations of the classes above, you can see from whatever little bit of code I have included, that we are primarily dealing with interfaces. This is very important in terms of testability, as now we can easily swap in mock and fake implementations while testing, thus making writing unit tests a breeze. It also makes the code very reusable and extensible.</p>
+
+<p>I am callig singleton instances of the factories in the main function. Ideally, these would be provided by a DI framework such as Guice or Dagger or Spring through the use of simple annotations.</p>
+
+<p>Okay! I&rsquo;m gonna continue going down this rabbit hole and develop an Elevator Simulator inside a React SPA. I&rsquo;ll post the code on my bitbucket soonish&hellip; Until then, Happy coding/interviewing!</p>

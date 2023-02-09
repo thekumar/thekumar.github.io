@@ -1,0 +1,12 @@
+---
+layout: post
+title: One Step Forward, Two Steps Back!
+date: '2013-06-07T03:25:01-07:00'
+tags: []
+tumblr_url: https://blog.vijayarunkumar.com/post/52365859791/one-step-forward-two-steps-back
+---
+<p>The development of my app hit a roadblock yesterday. Effect selection works! Record/Pause/Resume works! It&rsquo;s all super slick! And it CRASHES!!!</p>
+<p>I&rsquo;m not entirely sure what it is, but it&rsquo;s either a Threading/Memory-Management issue with the GPUImage library, or an issue in the driver software for the GPU itself. I am thinking it might be a driver issue as well because, I simply created and deleted a bunch of frame buffers, and render buffers using the standard GL functions&hellip; and eventually ended up getting a system memory warning. As for GPUImage, there&rsquo;s some timing issues in there, where it tries to process a frame after it&rsquo;s buffer had been cleared and deallocated&hellip; and ends up with a seg fault (EXC_BAD_ACCESS).</p>
+<p>So, when I try to re-route the video preview from the Effect Selection screen, to the Recording Preview screen&hellip; the App crashes! Well, I&rsquo;m not gonna spend time debugging the issue in the GPUImage framework, or the OpenGL drivers. The app got more stable when I decreased the number of active video previews on the effect selection screen. So, there&rsquo;s definitely a threading issue somewhere, and debugging those are hard&hellip; especially when it&rsquo;s in a codebase written by someone else, with almost zero documentation.</p>
+<p>Instead, I&rsquo;m gonna try and re-use UI elements and simply move the pre-wired preview elements in the view hierarchy. GPUImage&rsquo;s OpenGL buffers are backed by UIKit Core Animation Layers, and as long as I don&rsquo;t resize an existing UIView, its buffers aren&rsquo;t affected. One caveat to this approach&hellip; It limits what I can do with the UI. Especially since I can&rsquo;t re-size them without risking a crash. A slight re-design is in order.</p>
+<p>I originally planned on getting the basic app hooked up by tonight, before I go camping/hiking for the weekend. But, that doesn&rsquo;t seem likely. Now, I don&rsquo;t expect to have a beta build out anytime before monday, and it probably wont include the UI for effect customization :( At least, I have a workaround in mind, and it actually made me rethink the UI and made the overall experience come together in a better way. Hopefully it works!</p>
