@@ -36,10 +36,10 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          if [ -n "$(git status --porcelain docs/index.html)" ]; then
+          if [ -n "$(git status --porcelain jsonresume.html)" ]; then
             git add jsonresume.html
             git add resume.pdf
-            git commit -m "[ci skip] chore(docs/index.html): update resume html and pdf"
+            git commit -m "[ci skip] chore(jsonresume.html): update resume html and pdf"
             echo "exit_code=0" >> $GITHUB_OUTPUT
           else
             echo "exit_code=1" >> $GITHUB_OUTPUT
