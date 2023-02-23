@@ -1,0 +1,315 @@
+{
+  "basics": {
+    "name": "Vijay Arunkumar",
+    "label": "Software Engineer",
+    "email": "thekumar@gmail.com",
+    "phone": "(510) 541-8740",
+    "url": "https://vijayarunkumar.com",
+    "summary": "Software Engineering Lead. Curious about the cutting edge. Obsessed about keeping it simple.",
+    "location": {
+      "city": "Palo Alto",
+      "countryCode": "US",
+      "region": "California"
+    },
+    "profiles": [
+      {
+        "network": "Twitter",
+        "username": "thekumar",
+        "url": "https://twitter.com/thekumar"
+      },
+      {
+        "network": "LinkedIn",
+        "username": "vijayarun",
+        "url": "https://linkedin.com/in/vijayarun"
+      },
+      {
+        "network": "Github",
+        "username": "thekumar",
+        "url": "https://github.com/thekumar"
+      }
+    ]
+  },
+  "education": [
+    {
+      "institution": "University of California, Davis",
+      "url": "https://www.ucdavis.edu",
+      "studyType": "Bachelors in Science",
+      "area": "Computer Engineering",
+      "startDate": "1998-09-01",
+      "endDate": "2002-06-01"
+    }
+  ], 
+  "work": [
+    {
+      "name": "Skiff",
+      "location": "New York, NY / San Francisco, CA",
+      "startDate": "2022-04-15",
+      "endDate": "2023-01-15",
+      "position": "Principal Engineer",
+      "summary": "As senior member of engineering team, oversaw design decisions and implemented product features to ensure scalability with user/feature/organizational growth. Also, led the effort to improve our backend service's reliability and performance.",
+      "highlights": [
+        "Improved p95 response time for backend service by ~20x from 1.2s to 65ms.",
+        "Improved DB CPU load by ~100x by improving our schema to simplify indexing and querying.",
+        "Designed and implemented web3 wallet-based addressing for Skiff Mail and integrated with ENS via Infura and Alchemy APIs.",
+        "Designed and implemented an internal drip-campaign mass mailer.",
+        "Unified our disparate GraphQL client libraries into a single shared library to streamline frontend development."
+      ]
+    },
+    {
+      "name": "AWS - Amazon",
+      "location": "New York, NY",
+      "startDate": "2020-04-15",
+      "endDate": "2022-04-15",
+      "position": "Software Development Engineer",
+      "summary": "Engineer in the Enterprise Support Billing team within AWS Commerce Platform org, responsible for improving workflows and processes used to bill our high-spend enterprise customers.",
+      "highlights": [
+        "Worked with cross-functional teams across departments and led the effort to improve our customer onboarding workflow from ~2 week turnaround time to ~2 hours.",
+        "Iteratively improved code and processes for our monthly bill-run process to improve speed, accuracy, and reliability.",
+        "Worked with PMs, TAMs, and Customers on resolving customer billing issues and inquiries.",
+        "Liaised with cleared engineers in our SCIFs on process improvements and customer issues related to sensitive government data.",
+        "Implemented features and improvements in our billing dashboard app, built atop Airwolf and Polaris, Amazon's internal UI and Component framework a la React and Material UI."
+      ]
+    },
+    {
+      "name": "Dropbox",
+      "location": "New York, NY",
+      "startDate": "2018-07-15",
+      "endDate": "2020-02-15",
+      "position": "Senior Software Engineer",
+      "summary": "Engineer on Dropbox Showcase and Paper Platform teams.",
+      "highlights": [
+        "Designed and implemented React UI Components and Product Features on top of Paper for Showcase.",
+        "Improved product reliability through a comprehensive list of Jest/Enzyme unit tests and Selenium/Capybara integration tests.",
+        "Delivered HIPAA Compliance for Dropbox Paper.",
+        "Improved Developer Experience by streamlining our Bazel dependencies and by creating a shared services sandbox / sidecar proxy to vastly reduce memory footprint on dev boxes."
+      ]
+    },
+    {
+      "name": "Google",
+      "location": "New York, NY",
+      "startDate": "2016-01-15",
+      "endDate": "2017-12-15",
+      "position": "Senior Software Engineer",
+      "summary": "Senior member of Docs Comments team (Docos) responsible for working with PM, UX, and Eng Managers to deliver projects from ideation to launch.",
+      "highlights": [
+        "Implemented the “Instant Mentions” feature across all platforms (Javascript, Android, and iOS).",
+        "Primary POC for our iOS code for reviewing external teams' features, designs, and code.",
+        "Designed and implemented “Action Items” for iOS (Objective-C and bundled Javascript).",
+        "Led the design and scope for syncing Docs Action Items with Calendar Reminders.",
+        "Led the effort to improve UI performance for documents with a large comment count, and designed and implemented tiled layout and other improvements resulting in > 98% savings in render time.",
+        "Led the security review for our “Copy Comments” feature using STRIDE threat modeling.",
+        "Successfully led and mentored our team's Engineering Resident into a full-time role."
+      ]
+    },
+    {
+      "name": "DeepDyve",
+      "location": "Redwood City, CA",
+      "startDate": "2015-06-15",
+      "endDate": "2015-12-15",
+      "position": "Data Science Consultant",
+      "summary": "Contracted for this scientific article publishing startup to help with search, retention, and discoverability.",
+      "highlights": [
+        "Designed and implemented the “Others also viewed” feature to rank related articles based on link analysis of sequential views by readers.",
+        "Implemented a simple cookie based mechanism to track sequential views, and ranked the universal set using Hadoop MR",
+        "Designed and implemented “More from the authors” feature to rank related articles based on the number of common authors."
+      ]
+    },
+    {
+      "name": "Shutterfly",
+      "location": "Redwood City, CA",
+      "startDate": "2013-06-15",
+      "endDate": "2015-12-15",
+      "position": "Senior Web Engineer",
+      "summary": "Senior Engineer on the Shared Services team, responsible for moving our monolithic codebase to a scalable microservices based one.",
+      "highlights": [
+        "Rearchitected our codebase to be more horizontally scalable with RESTful microservices.",
+        "Designed and implemented Single Sign On and OAuth for API access between our brands.",
+        "Led the effort around secure design practices and introduced STRIDE threat modeling to engineering teams.",
+        "Identified and mitigated potential secuirty risks to user data by migrating unsalted weakly encrypted passwords to a more robust BCrypt based solution."
+      ]
+    },
+    {
+      "name": "Bread Labs",
+      "location": "San Francisco, CA",
+      "startDate": "2012-03-15",
+      "endDate": "2013-05-15",
+      "position": "Engineer",
+      "summary": "Core member of 4 person engineering team, responsible for building our Ad Platform's backend APIs and Services using Groovy/Grails",
+      "highlights": [
+        "Built our product subscription billing, invoicing, and payment processing features. Integrated with Braintree Payments and built a pro-rated billing and credits system from the ground up.",
+        "Designed and implemented our geo-targeted ads feature and integratied with MaxMind and location based APIs.",
+        "Other features implemented include: Campaign Pacing, Domain and Path based URL blacklists, Targeting/Filtering based on Facebook likes and Klout scores, etc."
+      ]
+    },
+    {
+      "name": "Mobclix",
+      "location": "Palo Alto, CA",
+      "startDate": "2011-01-02",
+      "endDate": "2012-03-15",
+      "position": "Software Engineer",
+      "summary": "Engineer implementing algorithms to optimize ad delivery and pacing at a Mobile Ad startup.",
+      "highlights": [
+        "Designed and implemented campaign pacing algorithms to optimize good outcomes for both mobile app developers as well as for Ad networks.",
+        "Built REST APIs that allowed third party ad networks to configure their ad spend and manage demand and ad creatives on our platform.",
+        "Maintained our developer dashboard, and liaised with dev teams at third party ad networks."
+      ]
+    },
+    {
+      "name": "Adobe",
+      "location": "San Francisco, CA",
+      "startDate": "2010-05-15",
+      "endDate": "2010-12-31",
+      "position": "Computer Scientist",
+      "summary": "Ported Flash to Android, RIM, and QNX devices as a member of the Flash Customer Engineering team.",
+      "highlights": [
+        "Ported Flash to work on Marvell chipset.",
+        "Embedded with RIM/QNX teams to port flash to work with mobile firefox on the Blackberry Playbook."
+      ]
+    },
+    {
+      "name": "Microsoft (Tellme)",
+      "location": "Mountain View, CA",
+      "startDate": "2006-09-11",
+      "endDate": "2010-05-15",
+      "position": "SDE II / Senior Software Engineer",
+      "summary": "Engineer on Tellme Phonetop team, and later on the Windows Speech UX team where I built voice based search and control applications for mobile platforms.",
+      "highlights": [
+        "Led the prototype development of Tellme Speech Experience for Windows Phone 7, and designed and developed UI/UX flows and grammars for the Speech UX that shipped with Windows Phone 7.",
+        "As a member of the phonetop team, built a Voice+Visual application platform that enabled us to build voice based apps across various mobile platforms including Blackberry, Windows Mobile, and J2ME phones.",
+        "Was a member of the committee that defined the spec for MobileML, the markup language used to build dynamic voice apps.",
+        "Identified and mitigated potential secuirty risks to user data by migrating unsalted weakly encrypted passwords to a more robust BCrypt based solution."
+      ]
+    },
+    {
+      "name": "ebay",
+      "location": "San Jose, CA",
+      "startDate": "2005-02-14",
+      "endDate": "2006-09-08",
+      "position": "Software Engineer",
+      "summary": "Engineer on eBay Stores, and K2 Search teams.",
+      "highlights": [
+        "Designed and delivered Related Searches and Stores 2.0.",
+        "Spearheaded use of AJAX within the org, and prototyped a dynamic UX for authoring Store Pages.",
+        "As part of a 20-person skunworks team, built a Product Search engine that indexed over a billion product review and shopping pages around the web.",
+        "Implemented Map Reduce crawler pipeline feature to automatically detect and filter out site design/template elements from being indexed."
+      ]
+    },
+    {
+      "name": "AOL (Spherion)",
+      "location": "Dulles, VA",
+      "startDate": "2004-07-04",
+      "endDate": "2004-12-31",
+      "position": "Software Consultant",
+      "summary": "Engineer on Netscape Talkback Server.",
+      "highlights": []
+    },
+    {
+      "name": "Accenture Technology Solutions @ ebay",
+      "location": "San Jose, CA",
+      "startDate": "2003-11-15",
+      "endDate": "2004-07-01",
+      "position": "Senior Programmer",
+      "summary": "Engineer on eBay Stores 2.0 and Seller Reports projects.",
+      "highlights": []
+    }
+  ],
+  "volunteer": [
+    {
+      "organization": "TEALS K-12",
+      "location": "New York, NY",
+      "startDate": "2016-07-01",
+      "endDate": "2017-06-01",
+      "position": "Volunteer Teachning Assistant",
+      "summary": "Teaching Assistant for an Introductory programming class at Gregorio Luperon High School for Science and Mathematics."
+    },
+    {
+      "organization": "TEALS K-12",
+      "location": "New York, NY",
+      "startDate": "2018-07-01",
+      "endDate": "2019-06-01",
+      "position": "Volunteer Teachning Assistant",
+      "summary": "Returned as a teaching assistant and taught CS concepts to high school students at Quest to Learn."
+    }
+  ],
+  "projects": [
+    {
+      "name": "Fotoyaki",
+      "description": "iOS photo editing app",
+      "highlights": [
+        "Featured by Apple on the iOS App Store.",
+        "Ranked #2 in the Photos category for 2 weeks",
+        "Reached #39 rank in overall downloads on the App Store"
+      ],
+      "keywords": [
+        "Objective-C",
+        "iOS"
+      ],
+      "startDate": "2011-08-01",
+      "endDate": "2011-10-31",
+      "url": "https://fotoyaki.com/",
+      "roles": [
+        "Creator",
+        "App Developer"
+      ],
+      "type": "application"
+    },
+    {
+      "name": "ZDO",
+      "description": "iOS video filters and effects app with cool sketch and comic filters",
+      "highlights": [
+        "GPUImage based rendering pipeline",
+        "Smooth scrolling UX with live effect previews"
+      ],
+      "keywords": [
+        "Objective-C",
+        "GPUImage",
+        "iOS"
+      ],
+      "startDate": "2013-05-01",
+      "endDate": "2013-10-31",
+      "url": "https://zdoapp.com/",
+      "roles": [
+        "Creator",
+        "App Developer"
+      ],
+      "type": "application"
+    },
+    {
+      "name": "Remix / Mix.byCollab",
+      "description": "Collaborative video editor on the web",
+      "highlights": [
+        "Real-time collaboration using Operation Transforms",
+        "Web based timeline editor built using React JS.",
+        "Preview and effect engine built using WebGL & FFMpeg.js",
+        "Sync layer build using websockets connecting to a Java and Go gRPC backend."
+      ],
+      "keywords": [
+        "HTML5",
+        "WebGL",
+        "Operation Transforms"
+      ],
+      "startDate": "2018-01-01",
+      "endDate": "2018-06-30",
+      "url": "http://mixbycollab.launchrock.com/",
+      "roles": [
+        "Creator",
+        "App Developer"
+      ],
+      "type": "application"
+    }
+  ],
+  "certificates": [
+    {
+      "name": "Mining Massive Datasets",
+      "url": "https://www.coursera.org/api/legacyCertificates.v1/spark/statementOfAccomplishment/974476~3184017/pdf",
+      "issuer": "Stanford University via Coursera",
+      "date": "2015-04-08"
+    },
+    {
+      "name": "Machine Learning",
+      "url": "https://www.coursera.org/api/legacyCertificates.v1/spark/statementOfAccomplishment/973756~3184017/pdf",
+      "issuer": "Stanford University via Coursera",
+      "date": "2015-05-01"
+    }
+  ]
+}

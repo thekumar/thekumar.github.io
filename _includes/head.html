@@ -5,10 +5,8 @@
   {%- seo -%}
   <link rel="stylesheet" href="{{ "/assets/main.css" | relative_url }}">
   <!-- VIJAY ARUNKUMAR -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/styles/hybrid.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
-  <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
+  {%- include mermaid.html -%}
+  {%- include highlight.html -%}
   <!-- /VIJAY ARUNKUMAR -->
   {%- feed_meta -%}
   {%- if jekyll.environment == 'production' and site.google_analytics -%}

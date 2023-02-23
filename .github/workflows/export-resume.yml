@@ -1,0 +1,52 @@
+name: Publish resume in JSONResume format as Github Page
+ 
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  check_run:
+    runs-on: ubuntu-latest
+    if: "! contains(github.event.head_commit.message, '[ci skip]')"
+    steps:
+      - run: echo "${{ github.event.head_commit.message }}"
+
+  build:
+    runs-on: ubuntu-latest
+    needs: check_run
+    steps:
+      - uses: actions/checkout@v2
+      - uses: thekumar/action-jsonresume-export@v1
+        name: Export resume as HTML
+        with:
+          theme: macchiato
+          resume_filepath: resume.json
+          # modifies the resume.html in-place
+          output_filepath: jsonresume.html
+      - uses: thekumar/action-jsonresume-export@v1
+        name: Export resume as PDF
+        with:
+          theme: macchiato
+          resume_filepath: resume.json
+          # modifies the resume.pdf in-place
+          output_filepath: resume.pdf
+          output_format: pdf
+      - name: Commit published HTML
+        id: commit
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          if [ -n "$(git status --porcelain docs/index.html)" ]; then
+            git add jsonresume.html
+            git add resume.pdf
+            git commit -m "[ci skip] chore(docs/index.html): update resume html and pdf"
+            echo ::set-output name=exit_code::0
+          else
+            echo ::set-output name=exit_code::1
+          fi
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        if: steps.commit.outputs.exit_code == 0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}

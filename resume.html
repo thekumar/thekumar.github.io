@@ -1,0 +1,20 @@
+---
+layout: page
+title: Resume
+permalink: /resume/
+---
+<script type="text/javascript">
+  function setIframeZoom() {
+    let resumeFrame = document.getElementById('resumeFrame');
+    var style = document.createElement('style');
+    style.textContent =
+      'body {' +
+      '  zoom: 0.66;' +
+      '}' 
+      ;
+    resumeFrame.contentDocument.head.appendChild(style);
+  }
+</script>
+<p><svg class="svg-icon"><use xlink:href="/assets/download.svg#download"></use></svg> <a href="/resume.pdf">[PDF]</a> <a href="/resume.json">{JSON}</a></p>
+<iframe id="resumeFrame" width="100%" height="1000" src="/jsonresume.html" onload="setIframeZoom()">
+</iframe>

@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "jsonresume-theme-actual": "^0.2.1",
+    "jsonresume-theme-caffeine": "^1.2.3",
+    "jsonresume-theme-elegant": "^1.16.1",
+    "jsonresume-theme-flat": "^0.3.7",
+    "jsonresume-theme-onepage": "^0.0.3",
+    "jsonresume-theme-stackoverflow": "^2.0.0"
+  }
+}
