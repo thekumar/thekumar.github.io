@@ -2,7 +2,7 @@ name: Publish resume in JSONResume format as Github Page
  
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   check_run:
@@ -19,14 +19,14 @@ jobs:
       - uses: thekumar/action-jsonresume-export@v1
         name: Export resume as HTML
         with:
-          theme: macchiato
+          theme: actual
           resume_filepath: resume.json
           # modifies the resume.html in-place
           output_filepath: jsonresume.html
       - uses: thekumar/action-jsonresume-export@v1
         name: Export resume as PDF
         with:
-          theme: macchiato
+          theme: actual
           resume_filepath: resume.json
           # modifies the resume.pdf in-place
           output_filepath: resume.pdf
