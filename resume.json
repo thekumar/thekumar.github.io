@@ -310,6 +310,13 @@
       "url": "https://www.coursera.org/api/legacyCertificates.v1/spark/statementOfAccomplishment/973756~3184017/pdf",
       "issuer": "Stanford University via Coursera",
       "date": "2015-05-01"
+    },
+    {
+      "name": "Deep Learning Specialization",
+      "url": "https://www.coursera.org/api/legacyCertificates.v1/spark/statementOfAccomplishment/973756~3184017/pdf",
+      "issuer": "Deeplearning.ai via Coursera",
+      "date": "2023-02-28"
     }
+
   ]
 }
