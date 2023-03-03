@@ -372,12 +372,10 @@
   ],
   "skills": [
     {"name": "Cloud Infra", "level": "Intermediate", "keywords": ["AWS", "GCP", "Firebase", "Kubernetes", "Terraform"]},
-    {"name": "Architecture", "level": "Intermediate", "keywords": ["Scalable Architecure", "Service Mesh", "Cloud Infrastructure","Dependency Management"]},
     {"name": "Build/DevOps", "level": "Intermediate", "keywords": ["Aspect","Bazel", "Docker Compose", "Webpack"]},
-    {"name": "DB & Analytics", "level":"Expert","keywords": ["SQL", "NoSQL", "Map Reduce", "Spark", "Hadoop", "Search", "ELK"]},
-    {"name": "Machine Learning", "level":"Beginner", "keywords":["Tensorflow","Keras","SciKit","numpy"]},
-    {"name": "Frontend", "level": "Expert", "keywords": ["React", "Redux", "MaterialUI", "HTML5", "CSS"]},
-    {"name": "Backend", "level": "Expert", "keywords": ["Node", "Express", "GraphQL (Apollo)", "Prisma", "REST", "gRPC", "protobuf", "Spring (MVC/JPA/Boot)", "Hibernate"]},
-    {"name": "Languages", "level": "Master", "keywords": ["Typescript","Javascript","Java","Go","Objective-C","C++","Python"]}
+    {"name": "Data", "level":"Expert","keywords": ["SQL", "NoSQL", "Map Reduce", "Search"]},
+    {"name": "Frontend", "level": "Expert", "keywords": ["React/Redux", "MaterialUI", "HTML5", "CSS"]},
+    {"name": "Backend", "level": "Expert", "keywords": ["Node", "Express", "Next.js", "Apollo GraphQL", "Prisma", "REST", "gRPC", "protobuf", "SpringBoot", "Hibernate"]},
+    {"name": "Languages", "level": "Master", "keywords": ["Typescript","Java","Go","Javascript","Objective-C","Swift","C++","Python"]}
   ]
 }
