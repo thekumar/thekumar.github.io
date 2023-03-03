@@ -1,11 +1,11 @@
 {
   "basics": {
     "name": "Vijay Arunkumar",
-    "label": "Software Engineer",
+    "label": "Software Engineering Lead",
     "email": "thekumar@gmail.com",
     "phone": "(510) 541-8740",
     "url": "https://vijayarunkumar.com",
-    "summary": "Software Engineering Lead. Curious about the cutting edge. Obsessed about keeping it simple.",
+    "summary": "Seasoned Software Engineering Lead. Curious about the cutting edge. Obsessed about keeping things simple.",
     "location": {
       "city": "Palo Alto",
       "countryCode": "US",
@@ -180,7 +180,7 @@
         "Built UI/UX flows and speech grammars for the expereince that shipped with WindowsPhone 7.",
         "Built Tellme for mobile for Blackberry, Sprint Instinct, and J2ME devices",
         "Designed and implemented layout engine for Tellme on Windows Mobile 6",
-        "Member of the spec committee for MobileML, the markup language used to build dynamic voice apps.",
+        "Member of the spec committee for MobileML, the markup language used to build dynamic voice apps."
       ]
     },
     {
@@ -333,7 +333,7 @@
       "description": "Currently working on a collaborative platform for building and sharing data analytics dashboards on the web.",
       "highlights": [
         "Serverless backend employing Firebase(Auth + Firestore)",
-        "React/Typescript frontend.",
+        "React/Typescript frontend."
       ],
       "keywords": [
         "HTML5",
