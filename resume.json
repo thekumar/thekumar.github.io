@@ -126,7 +126,7 @@
         "Rearchitected monolithic code into scalable RESTful microservices.",
         "Designed and implemented Single Sign On and OAuth for API access between our brands.",
         "Led Secure Design initiatives and introduced STRIDE threat modeling to engineering teams.",
-        "Identified and mitigated potential secuirty risk by upgrading unsalted user passwords to bcrypt."
+        "Identified and mitigated potential security risk by upgrading unsalted user passwords to bcrypt."
       ]
     },
     {
@@ -227,8 +227,8 @@
     {
       "name": "Microsoft, Inc.",
       "location": "Redmond, WA",
-      "startDate": "2003-11-15",
-      "endDate": "2004-07-01",
+      "startDate": "2001-06-15",
+      "endDate": "2001-08-31",
       "position": "Software Development Intern",
       "summary": "I interned in the Windows XP SystemsManagementServer team where I implemented thread pooling and worked on moving from a polling-based system to a notification based one.",
       "highlights": []
