@@ -13,3 +13,4 @@ only found in `jekyll-paginate-v2`. So, suffice it to say, I have made plenty of
 2. Speaking of Categories and Tags, I have a commented out tags page `_layouts/tags.html` and `_includes/tags_list.html`.
 3. Integrate with mermaidjs `_includes/mermaid.html`, asciinema `_includes/asciinema.html`, and highlightjs `_includes/highlight.html`. (Also see `_includes/head.html`)
 4. I've also added a Github workflow (`.github/workflows/export-resume.yml`) to auto generate my Resume in HTML and PDF formats whenever my `resume.json` file changes.
+  - [![Publish Resume](https://github.com/thekumar/thekumar.github.io/actions/workflows/export-resume.yml/badge.svg)](https://github.com/thekumar/thekumar.github.io/actions/workflows/export-resume.yml)
