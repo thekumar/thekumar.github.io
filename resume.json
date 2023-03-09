@@ -49,10 +49,11 @@
       "summary": "As senior member of engineering team, oversaw design decisions and implemented product features to ensure scalability with user/feature/organizational growth. Also, led the effort to improve our backend service's reliability and performance.",
       "highlights": [
         "Improved p95 response time for backend service by ~20x from 1.2s to 65ms.",
-        "Improved DB CPU load by ~100x by improving our schema to simplify indexing and querying.",
-        "Designed and implemented web3 wallet-based addressing for Skiff Mail and integrated with ENS via Infura and Alchemy APIs.",
-        "Designed and implemented our drip-campaign mass mailer.",
-        "Unified our disparate GraphQL client libraries into a single shared library to streamline frontend development."
+        "Improved DB CPU load by ~100x by improving our schema to simplify joins.",
+        "Built web3 wallet-based addressing for Skiff Mail.",
+        "Integrated with ENS and Ethereum blockchain via Infura and Alchemy APIs.",
+        "Built our drip-campaign mass mailer.",
+        "Unified our disparate GraphQL client libraries to streamline frontend development."
       ]
     },
     {
@@ -63,11 +64,11 @@
       "position": "Software Development Engineer",
       "summary": "I was an engineer in the Enterprise Support Billing service team within AWS Commerce Platform org, where I was responsible for improving workflows and processes used to bill our high-spend enterprise customers.",
       "highlights": [
-        "Worked with cross-functional teams across departments and led the effort to improve our customer onboarding workflow from ~2 week turnaround time to ~2 hours.",
-        "Iteratively improved code and processes for our monthly bill-run process to improve speed, accuracy, and reliability.",
-        "Worked with PMs, TAMs, and Customers on resolving customer billing issues and inquiries.",
-        "Liaised with cleared engineers in our SCIFs on process improvements and customer issues related to sensitive government data.",
-        "Implemented features and improvements in our billing dashboard app, built atop Airwolf and Polaris, Amazon's internal UI and Component framework a la React and Material UI."
+        "Led the effort to improve customer onboarding from ~2 weeks to ~2 hours.",
+        "Iteratively improved speed, accuracy, and reliability of our monthly bill-runs.",
+        "Worked with PMs, TAMs, and Customers on resolving billing issues.",
+        "Improved processes/workflows related to sensitive customer data in SCIFs.",
+        "Built features and improvements in our React/Redux Billing Dashboard."
       ]
     },
     {
@@ -80,8 +81,8 @@
       "highlights": [
         "Improved Showcase's test coverage from <40% to >80%.",
         "Delivered HIPAA Compliance for Dropbox Paper.",
-        "Streamlined and unntangled bazel dependencies to improve build/test times.",
-        "Built a shared service sandbox and sidecar proxy to vastly improve memory footprint on dev boxes."
+        "Streamlined and untangled bazel dependencies to improve build/test times.",
+        "Built a shared service sandbox and proxy to vastly improve devbox memory footprint."
       ]
     },
     {
@@ -92,13 +93,11 @@
       "position": "Senior Software Engineer",
       "summary": "As a Senior member of Docs Comments team (Docos), I was responsible for working with PM, UX, and Eng Managers to deliver collaborative features related to Docs and Comments from ideation to launch.",
       "highlights": [
-        "Implemented “Instant Mentions” feature across all platforms (Javascript, Android, and iOS).",
-        "Primary POC for Docs Comments iOS features.",
-        "Designed and implemented “Action Items” for iOS.",
+        "Built “Instant Mentions” and “Action Items” for Web, Android, and iOS.",
         "Delivered design for syncing Action Items with Calendar Reminders.",
-        "Improved UX rendering performance by >98% on the web for Docs with 100+ comments.",
+        "Improved Comments  UX rendering performance by >98% on the web.",
         "Led STRIDE modeling and security review for “Copy Comments”.",
-        "Dotted-line managed and mentored our team's Engineering Resident into a full-time role."
+        "Managed and mentored our team's Engineering Resident."
       ]
     },
     {
@@ -109,10 +108,10 @@
       "position": "Data Science Consultant",
       "summary": "I consulted for this scientific article publishing on their data mining efforts to help with search, retention, and discoverability.",
       "highlights": [
-        "“Others also viewed” - Ranked related articles based on 3-gram link analysis of sequential views by readers.",
-        "“More from the authors” - Ranked related articles based on the number of common authors.",
-        "Implemented a simple cookie based mechanism to track sequential views.",
-        "Implemented ranking algorithms on the universal set using Hadoop MR, along with a live update pipeline."
+        "“Others also viewed” - based on 3-gram link analysis of views by readers.",
+        "“More from the authors” - based on the number of common authors.",
+        "Implemented a simple cookie based mechanism for linking views.",
+        "Implemented ranking algorithms using Hadoop MR."
       ]
     },
     {
@@ -124,9 +123,9 @@
       "summary": "As a senior Engineer on the Shared Services team, I was responsible for rearchitecting and moving our monolithic codebase to a scalable microservices based one.",
       "highlights": [
         "Rearchitected monolithic code into scalable RESTful microservices.",
-        "Designed and implemented Single Sign On and OAuth for API access between our brands.",
-        "Led Secure Design initiatives and introduced STRIDE threat modeling to engineering teams.",
-        "Identified and mitigated potential security risk by upgrading unsalted user passwords to bcrypt."
+        "Designed and implemented SSO and OAuth for API access between our brands.",
+        "Led Secure Design initiatives and introduced STRIDE to engineering teams.",
+        "Identified and mitigated potential security risks across our DB systems."
       ]
     },
     {
@@ -137,7 +136,7 @@
       "position": "Engineer",
       "summary": "Core member of 4 person engineering team, responsible for building our Ad Platform's backend APIs and Services using Groovy/Grails",
       "highlights": [
-        "Built our product subscription billing, invoicing, and payment processing features.",
+        "Built product subscription billing, invoicing, and payment processing.",
         "Integrated with Braintree Payments and built a pro-rated billing and credits system from the ground up.",
         "Designed and implemented our geo-targeted ads feature and integratied with MaxMind and location based APIs.",
         "Other features implemented include: Campaign Pacing, Domain/Path based URL blacklists, Targeting/Filtering based on Facebook likes and Klout scores, etc."
@@ -266,10 +265,10 @@
       "name": "Fotoyaki",
       "description": "I built a Photo filter and editing app to learn iOS development and Objective-C. And, it blew up!",
       "highlights": [
-        "App was featured by Apple on the iOS App Store.",
+        "Featured by Apple on the App Store.",
         "Over 750,000 installs",
-        "Ranked #2 in the Photos category for 2 weeks",
-        "Reached #39 rank in overall downloads on the App Store"
+        "Achieved #2 rank in the Photos category.",
+        "Reached #39 rank in overall downloads."
       ],
       "keywords": [
         "Objective-C",
@@ -287,10 +286,6 @@
     {
       "name": "ZDO",
       "description": "iOS video filters and effects app with cool sketch and comic filters",
-      "highlights": [
-        "GPUImage based rendering pipeline",
-        "Smooth scrolling UX with live effect previews"
-      ],
       "keywords": [
         "Objective-C",
         "GPUImage",
@@ -309,10 +304,10 @@
       "name": "Remix / Mix.byCollab",
       "description": "Collaborative video editor on the web",
       "highlights": [
-        "Real-time collaboration using Operation Transforms",
-        "Web based timeline editor built using React JS.",
-        "Preview and effect engine built using WebGL & FFMpeg.js",
-        "Sync layer build using websockets connecting to a Java and Go gRPC backend."
+        "Real-time collaboration using OT",
+        "Timeline editor built using ReactJS.",
+        "Rendering pipeline built w/ WebGL & FFMpeg.js",
+        "Sync backend built w/ gRPC, Go, and Java."
       ],
       "keywords": [
         "HTML5",
@@ -371,11 +366,11 @@
     }
   ],
   "skills": [
-    {"name": "Cloud Infra", "level": "Intermediate", "keywords": ["AWS", "GCP", "Firebase", "Kubernetes", "Terraform"]},
-    {"name": "Build/DevOps", "level": "Intermediate", "keywords": ["Aspect","Bazel", "Docker Compose", "Webpack"]},
-    {"name": "Data", "level":"Expert","keywords": ["SQL", "NoSQL", "Map Reduce", "Search"]},
-    {"name": "Frontend", "level": "Expert", "keywords": ["React/Redux", "MaterialUI", "HTML5", "CSS"]},
-    {"name": "Backend", "level": "Expert", "keywords": ["Node", "Express", "Next.js", "Apollo GraphQL", "Prisma", "REST", "gRPC", "protobuf", "SpringBoot", "Hibernate"]},
-    {"name": "Languages", "level": "Master", "keywords": ["Typescript","Java","Go","Javascript","Objective-C","Swift","C++","Python"]}
+    {"name": "Cloud/Infra", "keywords": ["AWS", "GCP", "Firebase", "Kubernetes", "Terraform"]},
+    {"name": "Build/DevOps", "keywords": ["Aspect","Bazel", "Docker Compose", "Webpack"]},
+    {"name": "Data", "keywords": ["SQL", "NoSQL", "Map Reduce", "Search"]},
+    {"name": "Frontend", "keywords": ["React/Redux", "MaterialUI", "HTML5", "CSS"]},
+    {"name": "Backend", "keywords": ["Node", "Express", "Next.js", "GraphQL", "Prisma", "REST", "gRPC/protobuf", "SpringBoot"]},
+    {"name": "Languages", "keywords": ["Typescript","Java","Go","Objective-C","Swift","C++","Python"]}
   ]
 }
