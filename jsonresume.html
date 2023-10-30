@@ -20,12 +20,14 @@ p {
   margin: 0;
 }
 
+@media not print {
+  body {
+    margin: 30px 0 50px 0;
+  }
+}
 @page {
   size: A4;
   margin: 15mm 0 20mm 0;
-}
-@page :first {
-  margin-top: 10mm;
 }
 a {
   color: #222222;
@@ -100,6 +102,14 @@ li:first-child {
 
 .padding-container-2 {
   padding: 20px 0;
+}
+
+.padding-top-container-2 {
+  padding-top: 20px;
+}
+
+.padding-bottom-container-2 {
+  padding-bottom: 20px;
 }
 
 .margin-text-1 {
@@ -353,8 +363,8 @@ li:first-child {
   font-size: 14.5px;
   font-weight: lighter;
   font-style: italic;
-}</style><title>Resume Vijay Arunkumar – Software Engineering Lead</title></head><body><div class="content"><div class="basics"><div class="table padding-container-2"><div class="main"><span class="name">Vijay Arunkumar</span><span class="label">Software Engineering Lead</span></div><div class="side"><ul class="contact"><li>(510) 541-8740</li><li>thekumar@gmail.com</li><li class="margin-text-5">Palo Alto, California, US</li></ul></div></div><div class="summary markdown padding-container-2"><p>Seasoned Software Engineering Lead. Curious about the cutting edge. Obsessed about keeping things simple.</p>
-</div></div><div class="table padding-container-2"><div class="main"><div class="work margin-container-4"><p class="section-title no-alone-2">Experience</p><div class="container"><div class="article margin-container-3"><div class="header no-alone-1"><div class="table"><div class="left"><span class="title">Principal Engineer</span><span class="subtitle margin-text-1"><a>Skiff</a> · New York, NY / San Francisco, CA</span></div><div class="right"><span class="date">Apr 2022 - Jan 2023</span></div></div></div><div class="summary markdown margin-text-4"><p>As senior member of engineering team, oversaw design decisions and implemented product features to ensure scalability with user/feature/organizational growth. Also, led the effort to improve our backend service's reliability and performance.</p>
+}</style><title>Resume Vijay Arunkumar – Software Engineering Lead</title></head><body><div class="content"><div class="basics"><div class="table padding-bottom-container-2"><div class="main"><span class="name">Vijay Arunkumar</span><span class="label">Software Engineering Lead</span></div><div class="side"><ul class="contact"><li>(510) 541-8740</li><li>thekumar@gmail.com</li><li class="margin-text-5">Palo Alto, California, US</li></ul></div></div><div class="summary markdown padding-container-2"><p>Seasoned Software Engineering Lead. Curious about the cutting edge. Obsessed about keeping things simple.</p>
+</div></div><div class="table padding-top-container-2"><div class="main"><div class="work margin-container-4"><p class="section-title no-alone-2">Experience</p><div class="container"><div class="article margin-container-3"><div class="header no-alone-1"><div class="table"><div class="left"><span class="title">Principal Engineer</span><span class="subtitle margin-text-1"><a>Skiff</a> · New York, NY / San Francisco, CA</span></div><div class="right"><span class="date">Apr 2022 - Jan 2023</span></div></div></div><div class="summary markdown margin-text-4"><p>As senior member of engineering team, oversaw design decisions and implemented product features to ensure scalability with user/feature/organizational growth. Also, led the effort to improve our backend service's reliability and performance.</p>
 </div><ul class="highlights margin-text-4 no-break"><li>Improved p95 response time for backend service by ~20x from 1.2s to 65ms.</li><li>Improved DB CPU load by ~100x by improving our schema to simplify joins.</li><li>Built web3 wallet-based addressing for Skiff Mail.</li><li>Integrated with ENS and Ethereum blockchain via Infura and Alchemy APIs.</li><li>Built our drip-campaign mass mailer.</li><li>Unified our disparate GraphQL client libraries to streamline frontend development.</li></ul></div><div class="article margin-container-3"><div class="header no-alone-1"><div class="table"><div class="left"><span class="title">Software Development Engineer</span><span class="subtitle margin-text-1"><a>AWS - Amazon</a> · New York, NY</span></div><div class="right"><span class="date">Apr 2020 - Apr 2022</span></div></div></div><div class="summary markdown margin-text-4"><p>I was an engineer in the Enterprise Support Billing service team within AWS Commerce Platform org, where I was responsible for improving workflows and processes used to bill our high-spend enterprise customers.</p>
 </div><ul class="highlights margin-text-4 no-break"><li>Led the effort to improve customer onboarding from ~2 weeks to ~2 hours.</li><li>Iteratively improved speed, accuracy, and reliability of our monthly bill-runs.</li><li>Worked with PMs, TAMs, and Customers on resolving billing issues.</li><li>Improved processes/workflows related to sensitive customer data in SCIFs.</li><li>Built features and improvements in our React/Redux Billing Dashboard.</li></ul></div><div class="article margin-container-3"><div class="header no-alone-1"><div class="table"><div class="left"><span class="title">Senior Software Engineer</span><span class="subtitle margin-text-1"><a>Dropbox</a> · New York, NY</span></div><div class="right"><span class="date">Jul 2018 - Feb 2020</span></div></div></div><div class="summary markdown margin-text-4"><p>I was an engineer on Dropbox Showcase and Paper Platform teams, where I was responsible for building UI components and product features, as well as for improving developer experience by streamlining our service and code dependencies. I was also responsible for improving Showcase's product reliability by implementing a comprehensive suite of Jest/Enzyme unit tests and Selenium/Capybara integration tests.</p>
 </div><ul class="highlights margin-text-4 no-break"><li>Improved Showcase's test coverage from &lt;40% to &gt;80%.</li><li>Delivered HIPAA Compliance for Dropbox Paper.</li><li>Streamlined and untangled bazel dependencies to improve build/test times.</li><li>Built a shared service sandbox and proxy to vastly improve devbox memory footprint.</li></ul></div><div class="article margin-container-3"><div class="header no-alone-1"><div class="table"><div class="left"><span class="title">Senior Software Engineer</span><span class="subtitle margin-text-1"><a>Google</a> · New York, NY</span></div><div class="right"><span class="date">Jan 2016 - Dec 2017</span></div></div></div><div class="summary markdown margin-text-4"><p>As a Senior member of Docs Comments team (Docos), I was responsible for working with PM, UX, and Eng Managers to deliver collaborative features related to Docs and Comments from ideation to launch.</p>
