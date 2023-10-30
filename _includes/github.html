@@ -8,50 +8,37 @@
   href="https://unpkg.com/github-calendar@latest/dist/github-calendar-responsive.css"
 />
 <style>
-.ghcalendar .GitHub {
-  width:100%;
-  display: flex;
-  justify-content: center;
+.ghcalendar td span {
+  position: initial !important;
 }
+
 .ghcalendar .sr-only {
-    display: none;
-}
-
-.ghcalendar td:first-child {
-    display: none;
-}
-
-.ghcalendar div.js-calendar-graph div:last-child {
-    display: none;
-}
-
-.ghcalendar table.ContributionCalendar-grid thead {
-    display: none;
+  display: none;
 }
 
 .ghcalendar td.ContributionCalendar-day {
-    border-radius: 3px;
-min-width: 10px;
-
+  border-radius: 2px;
+  min-width: 1em;
+  min-height: 1em;
 }
 
 .ghcalendar td.ContributionCalendar-day[data-level='0'] {
-    background-color: var(--color-calendar-graph-day-bg);
+  background-color: var(--color-calendar-graph-day-bg);
 }
 
 .ghcalendar td.ContributionCalendar-day[data-level='1'] {
-    background-color: var(--color-calendar-graph-day-L1-bg);
+  background-color: var(--color-calendar-graph-day-L1-bg);
 }
 
 .ghcalendar td.ContributionCalendar-day[data-level='2'] {
-    background-color: var(--color-calendar-graph-day-L2-bg);
+  background-color: var(--color-calendar-graph-day-L2-bg);
 }
 
 .ghcalendar td.ContributionCalendar-day[data-level='3'] {
-    background-color: var(--color-calendar-graph-day-L3-bg);
+  background-color: var(--color-calendar-graph-day-L3-bg);
 }
 
 .ghcalendar td.ContributionCalendar-day[data-level='4'] {
-    background-color: var(--color-calendar-graph-day-L4-bg);
+  background-color: var(--color-calendar-graph-day-L4-bg);
 }
 </style>
