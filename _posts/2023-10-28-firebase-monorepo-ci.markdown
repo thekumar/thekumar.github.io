@@ -68,7 +68,7 @@ Look at my github contributions and guess where I introduced my build and deploy
 </div>
 
 <script>
-    new GitHubCalendar(".calendar", "your-username");
+    new GitHubCalendar(".calendar", "thekumar");
 </script>
 
 [isolate]:https://www.npmjs.com/package/isolate-package
