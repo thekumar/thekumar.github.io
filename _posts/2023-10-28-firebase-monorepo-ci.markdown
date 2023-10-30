@@ -51,13 +51,13 @@ I gotta say, these steps have already had a marked impact on the ease of adding 
 Look at my github contributions and guess where I introduced my build and deploy system. (HINT: It's around this blog post's posting date)
 
 <!-- Prepare a container for your calendar. -->
-<div class="calendar">
+<div class="ghcalendar">
     <!-- Loading stuff -->
     Loading the data just for you.
 </div>
 
 <script>
-    new GitHubCalendar(".calendar", "thekumar");
+    new GitHubCalendar(".ghcalendar", "thekumar");
 </script>
 
 [isolate]:https://www.npmjs.com/package/isolate-package
