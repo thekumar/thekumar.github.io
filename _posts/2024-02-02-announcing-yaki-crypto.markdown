@@ -56,8 +56,8 @@ there, as well as to openly showcase the secure foundations upon which Datayaki'
 
 Zero trust is the best way to guarantee trust in Datayaki.
 
-[datayaki]https://www.datayaki.com
-[yc]https://www.npmjs.com/package/@yaki-inc/crypto
-[gh]https://www.github.com/yaki-inc/crypto
-[tn]https://www.npmjs.com/package/tweetnacl
-[ls]https://www.npmjs.com/package/libsodium
+[datayaki]:https://www.datayaki.com
+[yc]:https://www.npmjs.com/package/@yaki-inc/crypto
+[gh]:https://www.github.com/yaki-inc/crypto
+[tn]:https://www.npmjs.com/package/tweetnacl
+[ls]:https://www.npmjs.com/package/libsodium
