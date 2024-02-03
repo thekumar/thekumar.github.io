@@ -6,8 +6,8 @@ categories: cryptography AEAD encryption e2ee
 mermaid: true
 ---
 
-End to end encryption is at the core of how I'm building privacy and security into Datayaki. And
-with the availability of solid battle tested encryption libraries like `libsodium` and `tweetnacl`,
+End to end encryption is at the core of how I'm building privacy and security into [Datayaki][datayaki]. And
+with the availability of solid battle tested encryption libraries like [`libsodium`][ls] and [`tweetnacl`][tn],
 implementing end-to-end encryption properly into your NodeJS and Typescript packages has become very
 accessible...
 
@@ -36,7 +36,10 @@ sneaky bugs. For instance, passing in a symmetric key in place of a signing key,
 
 # Announcing the availability of `@yaki-inc/crypto`
 
-You can read more about it at https://npmjs.com/package/@yaki-inc/crypto. But, the gist of it is,
+Yaki's crypto library is a strongly-typed and easy-to-understand wrapper around the battle tested
+tweetnacl. It's [open sourced][gh] under MIT license.
+
+You can read more about it on NPM at [@yaki-inc/crypto][yc]. But, the gist of it is,
 it's strongly typed. A PublicKey and PrivateKey are two different types. And an EncryptionPublicKey
 is different from a SigningPublicKey.
 
@@ -52,3 +55,9 @@ Open sourcing was both done to give back something to the community of developer
 there, as well as to openly showcase the secure foundations upon which Datayaki's security is built.
 
 Zero trust is the best way to guarantee trust in Datayaki.
+
+[datayaki]https://www.datayaki.com
+[yc]https://www.npmjs.com/package/@yaki-inc/crypto
+[gh]https://www.github.com/yaki-inc/crypto
+[tn]https://www.npmjs.com/package/tweetnacl
+[ls]https://www.npmjs.com/package/libsodium
