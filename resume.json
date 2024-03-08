@@ -43,14 +43,13 @@
     {
       "name": "Yaki, Inc.",
       "location": "Palo Alto, CA",
-      "startDate": "2023-04-15",
+      "startDate": "2023-02-15",
       "position": "Founder",
-      "summary": "Built an end-to-end encrypted, privacy-first, collaborative platform for building and sharing data analytics dashboards on the web using LLMs.",
+      "summary": "Building Datayaki, an end-to-end encrypted, privacy-first, collaborative platform for building and sharing data analytics dashboards on the web using LLMs.",
       "highlights": [
+        "Iterating through multiple cycles of product and feature development in search of PMF.",
         "Open sourced @yaki-inc/crypto - a simple, secure, and easy to use crypto library.",
-        "Datayaki.com - a collaborative platform for building and sharing data analytics dashboards on the web.",
-        "Built using Firebase(Auth + Firestore) and React/Typescript backed by vendor-agnostic LLMs from OpenAI, Google Vertex, LLAMA, and Mistral.",
-        "Uses Automerge CRDTs for real-time collaboration and conflict resolution."
+        "Built using Firebase(Auth + Firestore) and React/Typescript backed by vendor-agnostic LLMs from OpenAI, Google Vertex, LLAMA, and Mixtral."
       ]
     },
     {
