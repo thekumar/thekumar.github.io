@@ -41,6 +41,18 @@
   ], 
   "work": [
     {
+      "name": "Yaki, Inc.",
+      "location": "Palo Alto, CA",
+      "startDate": "2023-04-15",
+      "position": "Founder",
+      "summary": "Built an end-to-end collaborative platform for building and sharing data analytics dashboards on the web.",
+      "highlights": [
+        "Open sourced @yaki-inc/crypto - a simple, secure, and easy to use crypto library.",
+        "Datayaki.com - a collaborative platform for building and sharing data analytics dashboards on the web.",
+        "Built using Firebase(Auth + Firestore) and React/Typescript backed by vendor-agnostic LLMs from OpenAI, Google Vertex, LLAMA, and Mistral."
+      ]
+    },
+    {
       "name": "Skiff",
       "location": "New York, NY / San Francisco, CA",
       "startDate": "2022-04-15",
