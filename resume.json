@@ -5,11 +5,11 @@
     "email": "thekumar@gmail.com",
     "phone": "(510) 541-8740",
     "url": "https://vijayarunkumar.com",
-    "summary": "Seasoned Software Engineering Lead. Curious about the cutting edge. Obsessed about keeping things simple.",
+    "summary": "Software Engineering Lead specializing in full-stack product development and scaling systems from zero to 10^n. Curious about the cutting edge. Obsessed about keeping it simple.",
     "location": {
-      "city": "Palo Alto",
+      "city": "New York",
       "countryCode": "US",
-      "region": "California"
+      "region": "New York"
     },
     "profiles": [
       {
@@ -38,20 +38,45 @@
       "startDate": "1998-09-01",
       "endDate": "2002-06-01"
     }
-  ], 
+  ],
   "work": [
+    {
+      "name": "Meta",
+      "location": "Menlo Park, CA / New York, NY",
+      "startDate": "2024-10-15",
+      "position": "Software Engineer",
+      "summary": "Member of the Poly-source Sparse Machine Learning XFN Infra team — Privacy Preserving ML and Opt-out Signal Growth in Ads & Monetization Infra.",
+      "highlights": [
+        "Designed and Implemented Differential Privacy techniques in our Ads Ranking model training (Randomized Response, RAPPOR, Label Flipping, etc.), and introduced methods to extract signal from noisy privacy preserving proxy signals across the model stack (Noise Aware Gradient Adaptation, Label Importance, Disagreement Regularization, etc.) unlocking > 1% revenue gain.",
+        "Built agentic flows for accelerated tech harvesting, and for data privacy governance/enforcement."
+      ]
+    },
+    {
+      "name": "Variance (Intrinsic)",
+      "location": "San Francisco, CA",
+      "startDate": "2024-06-15",
+      "endDate": "2024-10-15",
+      "position": "Software Engineer",
+      "summary": "Core member of 5-person founding team scaling content moderation workflows with Applied AI.",
+      "highlights": [
+        "Owned RedBubble account end-to-end from pilot (5 policies) to productionization (5000 policies).",
+        "Prompt Engineering, Caching, Fine-tuning, Backtesting, Policy Authoring UX, the works!",
+        "Implemented a gated multi-stage indexing and evaluation pipeline to cut down our token usage costs by 10,000x from an estimated $22M/mo to $3000/mo while improving recall and precision."
+      ]
+    },
     {
       "name": "Yaki, Inc.",
       "location": "Palo Alto, CA",
-      "startDate": "2023-02-15",
+      "startDate": "2023-04-15",
       "position": "Founder",
-      "summary": "Building Sailfin.ai, an AI based stock market research tool, and Datayaki.com, an end-to-end encrypted, privacy-first, collaborative platform for building and sharing data analytics dashboards on the web using LLMs.",
+      "summary": "Iterated towards product market fit with LLMs, building Sailfin.ai and Datayaki.com.",
       "highlights": [
-        "Iterating through multiple cycles of product and feature development in search of PMF.",
-        "Open sourced @yaki-inc/crypto - a simple, secure, and easy to use crypto library.",
-        "Datayaki is built using Firebase(Auth + Firestore) and React/Typescript backed by vendor-agnostic LLMs from OpenAI, Google Vertex, LLAMA, and Mixtral.",
-        "Sailfin.ai is built using Vercel, Next.js, and Prisma, and backed by vendor-agnostic LLMs from OpenAI, Google Gemini, and local Ollama."
-      ]
+        "Datayaki.com, a privacy-first data analytics and sharing platform for numerical analysis using LLMs, built using Firebase (Auth + Firestore) and React/Typescript backed by vendor-agnostic LLMs (OpenAI, Google Vertex, LLaMA, Mixtral).",
+        "Sailfin.ai, a financial tool for analyzing earnings statements and news about public companies, built using Vercel, Next.js, and Prisma, backed by vendor-agnostic LLMs (OpenAI, Google Gemini, Ollama).",
+        "Open sourced @yaki-inc/crypto type safe encryption library with support for encrypted permissions and authorization flows.",
+        "Invented CAKE, an end-to-end encrypted auth-n/auth-z protocol and building E2E2.org."
+      ],
+      "endDate": "2024-06-15"
     },
     {
       "name": "Skiff",
@@ -59,14 +84,14 @@
       "startDate": "2022-04-15",
       "endDate": "2023-01-15",
       "position": "Principal Engineer",
-      "summary": "As senior member of engineering team, oversaw design decisions and implemented product features to ensure scalability with user/feature/organizational growth. Also, led the effort to improve our backend service's reliability and performance.",
+      "summary": "As senior member of engineering team, oversaw architectural decisions in addition to full-stack feature development. Led effort to improve service reliability and performance to handle 10x growth in users.",
       "highlights": [
-        "Improved p95 response time for backend service by ~20x from 1.2s to 65ms.",
-        "Improved DB CPU load by ~100x by improving our schema to simplify joins.",
-        "Built web3 wallet-based addressing for Skiff Mail.",
-        "Integrated with ENS and Ethereum blockchain via Infura and Alchemy APIs.",
-        "Built our drip-campaign mass mailer.",
-        "Unified our disparate GraphQL client libraries to streamline frontend development."
+        "Led effort to improve our service’s reliability and performance to handle 10x growth in users.",
+        "Improved GraphQL API p95 response time by 20x from 1.2s to 65ms.",
+        "Simplified the product UX and DB schema to scale RDS Postgres instance perf by ~100x.",
+        "Designed and implemented web3 wallet-based addressing for Skiff Mail and integrated with ENS and Ethereum blockchain via Infura and Alchemy APIs.",
+        "Consolidated GraphQL APIs and client libraries to streamline app development between Pages, Mail, and Calendar.",
+        "Designed and implemented in-house drip-campaign mailer to mitigate cost and privacy concerns."
       ]
     },
     {
@@ -75,13 +100,13 @@
       "startDate": "2020-04-15",
       "endDate": "2022-04-15",
       "position": "Software Development Engineer",
-      "summary": "I was an engineer in the Enterprise Support Billing service team within AWS Commerce Platform org, where I was responsible for improving workflows and processes used to bill our high-spend enterprise customers.",
+      "summary": "Technical Member of Enterprise Support Billing team within the AWS Commerce Platform group, responsible for improving workflows and processes used to bill high-spend enterprise customers.",
       "highlights": [
-        "Led the effort to improve customer onboarding from ~2 weeks to ~2 hours.",
-        "Iteratively improved speed, accuracy, and reliability of our monthly bill-runs.",
-        "Worked with PMs, TAMs, and Customers on resolving billing issues.",
-        "Improved processes/workflows related to sensitive customer data in SCIFs.",
-        "Built features and improvements in our React/Redux Billing Dashboard."
+        "Designed an automated customer onboarding workflow employing SNS, CloudTrail, and AWS Lambda to cut lead time from ~2 weeks to ~2 hours.",
+        "Improved speed, accuracy, and reliability of our monthly bill-runs through better parallelization scheduling and chunked file processing to avoid OOM issues (processing large CSV files stored on S3).",
+        "Liaised with cleared engineers in our SCIFs to improve code deployments and remote debugging procedures for customers on GovCloud.",
+        "Worked with PMs, TAMs, and Customers on resolving customer billing issues and inquiries.",
+        "Implemented features in our billing dashboard built atop Airwolf, Amazon’s version of React/Redux."
       ]
     },
     {
@@ -92,10 +117,11 @@
       "position": "Senior Software Engineer",
       "summary": "I was an engineer on Dropbox Showcase and Paper Platform teams, where I was responsible for building UI components and product features, as well as for improving developer experience by streamlining our service and code dependencies. I was also responsible for improving Showcase's product reliability by implementing a comprehensive suite of Jest/Enzyme unit tests and Selenium/Capybara integration tests.",
       "highlights": [
-        "Improved Showcase's test coverage from <40% to >80%.",
-        "Delivered HIPAA Compliance for Dropbox Paper.",
-        "Streamlined and untangled bazel dependencies to improve build/test times.",
-        "Built a shared service sandbox and proxy to vastly improve devbox memory footprint."
+        "Delivered HIPAA Compliance for Paper. Worked closely with legal and PM to get this done.",
+        "Designed and implemented layout editor and widgets for our Showcase product using React.",
+        "Improved code reliability and test coverage of Showcase (from <40% to >80%) through comprehensive unit (Jest/Enzyme) and integration (Selenium/Capybara) tests.",
+        "Analyzed and streamlined our Bazel dependency graph to vastly improve build and CI/CD times.",
+        "Improved devbox memory footprint via a shared service sandbox and a sidecar proxy written in Go to intelligently offload calls to sandbox."
       ]
     },
     {
@@ -104,13 +130,15 @@
       "startDate": "2016-01-15",
       "endDate": "2017-12-15",
       "position": "Senior Software Engineer",
-      "summary": "As a Senior member of Docs Comments team (Docos), I was responsible for working with PM, UX, and Eng Managers to deliver collaborative features related to Docs and Comments from ideation to launch.",
+      "summary": "Senior member of the Docs Comments team.",
       "highlights": [
-        "Built “Instant Mentions” and “Action Items” for Web, Android, and iOS.",
-        "Delivered design for syncing Action Items with Calendar Reminders.",
-        "Improved Comments  UX rendering performance by >98% on the web.",
-        "Led STRIDE modeling and security review for “Copy Comments”.",
-        "Managed and mentored our team's Engineering Resident."
+        "Implemented Instant Mentions (plus/at mention) across all platforms (Javascript, Android, and iOS).",
+        "Primary POC for our iOS code for reviewing external teams’ features, designs, and code.",
+        "Designed and implemented “Action Items” for iOS (Objective-C and Javascript).",
+        "Delivered the design and LOE for syncing Docs Action Items with Calendar Reminders.",
+        "Led the team to improve Comments UI performance resulting in > 98% savings in render time via tiled layout and DOM simplification.",
+        "Led STRIDE modeling and security reviews for projects and features, including “Copy Comments”.",
+        "Successfully dotted-line managed and mentored our team’s Engineering Resident into a full-time role."
       ]
     },
     {
@@ -121,10 +149,8 @@
       "position": "Data Science Consultant",
       "summary": "I consulted for this scientific article publishing on their data mining efforts to help with search, retention, and discoverability.",
       "highlights": [
-        "“Others also viewed” - based on 3-gram link analysis of views by readers.",
-        "“More from the authors” - based on the number of common authors.",
-        "Implemented a simple cookie based mechanism for linking views.",
-        "Implemented ranking algorithms using Hadoop MR."
+        "Built the “Others also viewed” and “More from the authors” search recommendation features to rank related articles based on link analysis of sequential views (3-gram link analysis) and shared authors.",
+        "Owned end-to-end design and delivery from tracking web views (cookie-based view tracking) to ranking suggestions at scale using Hadoop MR."
       ]
     },
     {
@@ -133,11 +159,12 @@
       "startDate": "2013-06-15",
       "endDate": "2015-12-15",
       "position": "Senior Web Engineer",
-      "summary": "As a senior Engineer on the Shared Services team, I was responsible for rearchitecting and moving our monolithic codebase to a scalable microservices based one.",
+      "summary": "As part of the Shared Services Team, rearchitected our monolithic codebase to be more horizontally scalable using RESTful microservices built atop Spring Boot, and Netflix’s OSS stack.",
       "highlights": [
-        "Rearchitected monolithic code into scalable RESTful microservices.",
-        "Designed and implemented SSO and OAuth for API access between our brands.",
-        "Led Secure Design initiatives and introduced STRIDE to engineering teams.",
+        "Rearchitected monolithic code into scalable RESTful microservices using Spring Boot and Netflix’s OSS stack.",
+        "Designed and implemented Single Sign On and OAuth for API access between our brands.",
+        "Designed and implemented the Store Catalog and Product Pricing services using Spring Boot.",
+        "Led the effort around secure design practices and introduced STRIDE modeling to engineering teams.",
         "Identified and mitigated potential security risks across our DB systems."
       ]
     },
@@ -147,12 +174,11 @@
       "startDate": "2012-03-15",
       "endDate": "2013-05-15",
       "position": "Engineer",
-      "summary": "Core member of 4 person engineering team, responsible for building our Ad Platform's backend APIs and Services using Groovy/Grails",
+      "summary": "Member of a four-person engineering team working on our Ad Platform (Groovy & Grails on Heroku).",
       "highlights": [
-        "Built product subscription billing, invoicing, and payment processing.",
-        "Integrated with Braintree Payments and built a pro-rated billing and credits system from the ground up.",
-        "Designed and implemented our geo-targeted ads feature and integratied with MaxMind and location based APIs.",
-        "Other features implemented include: Campaign Pacing, Domain/Path based URL blacklists, Targeting/Filtering based on Facebook likes and Klout scores, etc."
+        "Designed and implemented our product’s subscriptions and payments system with support for pro-rating, invoicing, refunds, discounts, and payment processing using Braintree Payments.",
+        "Designed and built geo-targeting for our ads using MaxMind and location-based APIs.",
+        "Also built: Campaign Pacing, Domain/Path based blocklists, and targeting/filtering based on Facebook likes and Klout scores."
       ]
     },
     {
@@ -188,11 +214,9 @@
       "position": "SDE II / Senior Software Engineer",
       "summary": "I built voice based search and control applications for mobile platforms on the Tellme Phonetop team, and later on the Windows Speech UX team.",
       "highlights": [
-        "Prototyped Tellme Speech UX for WindowsPhone 7.",
-        "Built UI/UX flows and speech grammars for the expereince that shipped with WindowsPhone 7.",
-        "Built Tellme for mobile for Blackberry, Sprint Instinct, and J2ME devices",
-        "Designed and implemented layout engine for Tellme on Windows Mobile 6",
-        "Member of the spec committee for MobileML, the markup language used to build dynamic voice apps."
+        "Led prototyping Windows Phone 7 Speech Experience, and designed and developed UI/UX flows and speech grammars for the final WP7 Speech UX.",
+        "Designed and Implemented a Voice + Visual application platform for Blackberry, Sprint Instinct, and other J2ME phones, and led development of layout and rendering on Windows Mobile 6.5.",
+        "Member of the spec committee for MobileML (markup language spec for authoring apps), and built “Tellme for mobile” and “Transit” apps on top of MobileML."
       ]
     },
     {
@@ -338,7 +362,7 @@
     },
     {
       "name": "Datayaki",
-      "description": "Currently working on a collaborative platform for building and sharing data analytics dashboards on the web.",
+      "description": "Collaborative platform for building and sharing data analytics dashboards on the web using LLMs.",
       "highlights": [
         "Serverless backend employing Firebase(Auth + Firestore)",
         "React/Typescript frontend."
@@ -356,7 +380,6 @@
       ],
       "type": "application"
     }
-
   ],
   "certificates": [
     {
@@ -379,11 +402,79 @@
     }
   ],
   "skills": [
-    {"name": "Cloud/Infra", "keywords": ["AWS", "GCP", "Firebase", "Kubernetes", "Terraform"]},
-    {"name": "Build/DevOps", "keywords": ["Aspect","Bazel", "Docker Compose", "Webpack"]},
-    {"name": "Data", "keywords": ["SQL", "NoSQL", "Map Reduce", "Search"]},
-    {"name": "Frontend", "keywords": ["React/Redux", "MaterialUI", "HTML5", "CSS"]},
-    {"name": "Backend", "keywords": ["Node", "Express", "Next.js", "GraphQL", "Prisma", "REST", "gRPC/protobuf", "SpringBoot"]},
-    {"name": "Languages", "keywords": ["Typescript","Java","Go","Objective-C","Swift","C++","Python"]}
+    {
+      "name": "AI",
+      "keywords": [
+        "VertexAI",
+        "OpenAI",
+        "Langchain",
+        "RAG",
+        "Knowledge Graphs",
+        "PyTorch",
+        "ONNX"
+      ]
+    },
+    {
+      "name": "Cloud/Infra",
+      "keywords": [
+        "AWS",
+        "GCP",
+        "Firebase",
+        "Kubernetes",
+        "Terraform"
+      ]
+    },
+    {
+      "name": "Build/DevOps",
+      "keywords": [
+        "Aspect",
+        "Bazel",
+        "Docker Compose",
+        "Webpack"
+      ]
+    },
+    {
+      "name": "Data",
+      "keywords": [
+        "SQL",
+        "NoSQL",
+        "Map Reduce",
+        "Search"
+      ]
+    },
+    {
+      "name": "Frontend",
+      "keywords": [
+        "React/Redux",
+        "MaterialUI",
+        "HTML5",
+        "CSS"
+      ]
+    },
+    {
+      "name": "Backend",
+      "keywords": [
+        "Node",
+        "Express",
+        "Next.js",
+        "GraphQL",
+        "Prisma",
+        "REST",
+        "gRPC/protobuf",
+        "SpringBoot"
+      ]
+    },
+    {
+      "name": "Languages",
+      "keywords": [
+        "Typescript",
+        "Java",
+        "Go",
+        "Objective-C",
+        "Swift",
+        "C++",
+        "Python"
+      ]
+    }
   ]
 }
